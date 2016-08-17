@@ -8,9 +8,9 @@ $fs=0.5;
 //mozdony();
 //SzemelyVagon();
 //NagyTartalyVagon();
-//LegoVagon();
+LegoVagon();
 //NagySzenesVagon();
-NagyKontenerVagon();
+//NagyKontenerVagon();
 
 module NagyKontenerVagon(){ //makeme
      difference(){
@@ -77,7 +77,7 @@ module NagySzenesVagon(){ //makeme
                     }
                 }
                 kerekdob(tx,tz);
-                translate([0,0,19])cube([90,24,25], center=true);
+                translate([0,0,19])cube([90,25,26], center=true);
             }
             tengely(tx,tz);
             tengely(-tx, tz);
@@ -254,33 +254,30 @@ module SzenesVagon(){ //makeme
 }
 
 
-module LegoVagon(){ //makeme
+module Lego6Vagon(){ //makeme
    difference(){
         tz = -11;
-        tx = 20;
+        tx = 25;
         union(){
             difference(){
                 union(){
-                    translate([0,0,-0.5])duplo(4,2,1, true,true);
+                    translate([0,0,-0.5])duplo(6,2,1, true,true);
                     minkowski(){
-                        translate([0,0,-5])cube([70,26,18], center=true);
-                        cylinder(r=3, h=1, center=true);
+                        translate([0,0,-5])cube([95,30,18], center=true);
+                        cylinder(r=1, h=1, center=true);
+                        }
                     }
-                }
                 kerekdob(tx,tz);
-            
             }
-            
             tengely(tx,tz);
             tengely(-tx, tz);
-            translate([-36,0,tz+3]) utkozo();
-            translate([36,0, tz+3]) utkozo();
+            translate([-46,0,tz+3]) utkozo();
+            translate([46,0, tz+3]) utkozo();
         }
-        
         tengelyfurat(tx, tz);
         tengelyfurat(-tx, tz);
-        translate([-34,0,-9.1])magnestarto();
-        translate([34,0,-9.1])magnestarto();       
+        translate([-44,0,-9.1])magnestarto();
+        translate([44,0,-9.1])magnestarto();       
     }
 }
 module steps(r, angle){
