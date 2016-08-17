@@ -34,10 +34,26 @@ pr = 2*dr + 5; // plate raster
 //mirror([0,1,0]) rampCornerPiece(steps=quality);
 //endPiece();
 
-bridgePiece();
+//bridgePiece();
 //bridgeBottomPiece();
 
-module bridgePiece()
+
+module conePieceNo3()  // makeme
+{
+    conePiece3(3, support=1);
+}
+
+module conePieceNo4()  // makeme
+{
+    conePiece3(4, support=1);
+}
+
+module conePieceNo5()  // makeme
+{
+    conePiece3(5, support=1);
+}
+
+module bridgePiece()  // makeme
 {
     difference()
     {
@@ -47,7 +63,7 @@ module bridgePiece()
     }
 }
 
-module bridgeBottomPiece()
+module bridgeBottomPiece() // makeme
 {
    difference() {
       duploMarbleRunBase(4,2,2,true);
@@ -96,7 +112,7 @@ module duploMarbleRunBase(width,length,height,topNibbles,bottomHoles)
    }
 }
 
-module straightPiece()
+module straightPiece() // makeme
 {
    difference() {
       duploMarbleRunBase(2,2,2,false);
@@ -114,7 +130,7 @@ module straightHolePiece()
    }
 }
 
-module crossingPiece()
+module crossingPiece() // makeme
 {
    difference() {
       duploMarbleRunBase(2,2,2,false);
@@ -125,7 +141,7 @@ module crossingPiece()
    }
 }
 
-module endPiece()
+module endPiece() // makeme
 {
    difference() {
       duploMarbleRunBase(2,2,2,false);
@@ -138,7 +154,7 @@ module endPiece()
    }
 }
 
-module cornerPiece()
+module cornerPiece() // makeme
 {
    difference() {
       duploMarbleRunBase(2,2,2,false);
@@ -156,7 +172,7 @@ module cornerHolePiece()
    }
 }
 
-module rampPiece()
+module rampPiece() // makeme
 {
    angle = 30.964; // 180 / 3.14159 * atan(duploHeight/duploRaster);
    vscale = 0.8575; // cos(angle);
@@ -172,7 +188,7 @@ module rampPiece()
    }
 }
 
-module ramp2Piece()
+module ramp2Piece() // makeme
 {
    angle = 16.699; // 180 / 3.14159 * atan(0.5*duploHeight/duploRaster);
    vscale = 0.9578; // cos(angle);
@@ -187,7 +203,7 @@ module ramp2Piece()
    }
 }
 
-module longRampPiece()
+module longRampPiece() // makeme
 {
    angle = 16.699; // 180 / 3.14159 * atan(0.5*duploHeight/duploRaster);
    vscale = 0.9578; // cos(angle);
@@ -202,7 +218,7 @@ module longRampPiece()
    }
 }
 
-module cosinusSlopedRampPiece()
+module cosinusSlopedRampPiece() // makeme
 {
    difference() {
       duploMarbleRunBase(2,4,4,false);
@@ -245,5 +261,98 @@ module cornerRamp(steps) // nr of steps: e.g. coarse=10, fine=90
                 translate([-dr,-2,0]) cube([4*duploRaster,4*duploRaster,70/steps]);
              }
       }
+   }
+}
+
+module duploMarbleRunBase(width,length,height,topNibbles,bottomHoles)
+{
+   union() {
+      duplo(width,length,height,topNibbles,bottomHoles);
+      translate([0,0,3])
+         cube([width*duploRaster-0.4,length*duploRaster-0.4,duploHeight*height-6],center=true);
+   }
+}
+
+
+module coneShape3(oRadius,coneHeight,coneQuality) {
+	stepSize=5/coneQuality;
+	r=(oRadius-innerRadius-dr);
+	epsilon=0.001;
+	for (i = [0 : stepSize : (0.9999)]) {
+		translate([0,0,i*coneHeight])
+			cylinder(coneHeight*stepSize+epsilon, innerRadius+pow(i,2)*r, innerRadius+pow(i+stepSize+epsilon,2)*r,$fn = coneQuality ); // top
+	}	
+	for (i = [0 : stepSize : (0.9999)]) {
+		translate([0,0,coneHeight+i*innerRadius])
+			cylinder(innerRadius*stepSize+epsilon, r+innerRadius+innerRadius*sqrt(1-pow(1-i,2)), r+innerRadius+innerRadius*sqrt(1-pow(1-i-stepSize-epsilon,2)),$fn = coneQuality ); // top
+	}	
+}
+
+module conePiece3(coneSize,support=0)
+{
+	coneDepth=(coneSize<=3)?1.0:1.5;
+	carving=1.0;
+	inletLength=(coneSize<=3)?2:3;
+	tapSupport=(support==0)?-1:(coneSize==5)?10:(coneSize==4)?7:20;
+
+	socketDistance=coneSize-1;
+	coneRadius=coneSize*dr;
+	coneHeight=coneDepth*duploHeight;
+	coneRaise=(1.5-coneDepth)*duploHeight;
+
+	coneQuality=2*quality;
+
+	for (i = [0 : 90 : 270]) {
+		rotate([0,0,i]) translate([socketDistance*dr,0,0.5*duploHeight]) {
+      		duploMarbleRunBase(2,2,1,false);
+      	}
+    }
+	translate([(coneSize-1)*dr,(1.5+inletLength/2)*dr,0.5*duploHeight]) // inlet brick
+      	duploMarbleRunBase(2,inletLength+1,1,true);
+	
+	difference() 
+	{
+
+		union() {
+			if (tapSupport>=0) {
+				cylinder(coneHeight+innerRadius+coneRaise,coneRadius-tapSupport, coneRadius,$fn = coneQuality ); // solid 
+			} else {
+				cylinder(coneHeight+innerRadius+coneRaise,innerRadius+2, innerRadius+2,$fn = coneQuality ); // solid 
+			}
+      		translate([0,0,coneRaise])
+      			coneShape3(coneRadius+duploWall,coneHeight,coneQuality*2);	
+	      	translate([(coneSize-1)*dr,(1+inletLength)/2*dr,2*duploHeight-1])
+				cube([2*dr-gapBetweenBricks,(1+inletLength)*dr-gapBetweenBricks,2*duploHeight+1],true); // inlet wall
+			for (i = [0 : 90 : 270]) { // cube sockets
+				rotate([0,0,i]) translate([socketDistance*dr,0,1.75*duploHeight-1]) {
+	      			cube([2*dr-gapBetweenBricks,2*dr-gapBetweenBricks,2.5*duploHeight],true);
+ 		     	}
+    		}
+		}
+// */		
+
+      	union() {
+			for (i = [0 : 90 : 270]) {
+				rotate([0,0,i]) translate([socketDistance*dr,0,0.5*duploHeight]) {
+      				translate([0,0,-0*duploHeight-1]) rotate([0,180,0])
+      					linear_extrude(height = duploHeight, center = true, convexity = 10, scale=[carving,carving], $fn=100)
+      						square([2*dr-2*gapBetweenBricks,2*dr-2*gapBetweenBricks],center = true);
+      			}
+      		}
+      		translate([(coneSize-1)*dr,coneSize*dr,1.5*duploHeight+coneHeight+coneRaise+2]) rotate([90,0,0])
+				cylinder( duploRaster*coneSize, innerRadius, innerRadius,$fn = coneQuality ); // inlet
+      		translate([0,0,-0.5*duploHeight])
+				cylinder(3*duploHeight, innerRadius, innerRadius,$fn = coneQuality ); // hole
+      		translate([0,0,2+coneRaise])
+      			coneShape3(coneRadius,coneHeight,coneQuality*2);
+			if (coneSize>3) {
+      			translate([(coneSize-1)*dr,2*dr,0.5*duploHeight-1]) rotate([0,180,0])
+      				linear_extrude(height = duploHeight, center = true, convexity = 10, scale=[carving,carving], $fn=100)
+      					square([2*dr-2*gapBetweenBricks,4*dr-2*gapBetweenBricks],center = true);
+			}
+      			
+      				
+		}
+// */      
    }
 }

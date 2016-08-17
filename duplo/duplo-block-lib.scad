@@ -23,7 +23,7 @@ duploNibbleRadius = dr * (1-1/1.41421) +0.1; // = 4.686+0.1,  dr*(1-1/sqrt(2))
 duploBottomNibbleRadius = dr*(1.41421-1); //= dr * 1.41421 / 2  - duploNibbleRadius = 6.6277
 duploGapBottom = -0.05; // recommended range from -0.1 to 0.1 with lower values for tighter fit.
 gapBetweenBricks = 0.3; // real duplo probably has 0.4
-duploWall = 1.55;// For duplo compatibility this is not so important, only if smaller lego should fit.
+duploWall = 1.2   ;// For duplo compatibility this is not so important, only if smaller lego should fit.
                    // (dr/2 - duploNibbleRadius - gapBetweenBricks)/2 = 1.507
 firstLayerGap = 0.2; // for easier fit and to compensate for printers that print a thicker bottom
 firstLayerGapHeight = 0.3;
@@ -34,7 +34,7 @@ quality = 60; // quality: low/fast (e.g. 10) for design, high/slow (e.g. 50) for
 // if some pieces are missing: "Edit"->"Preferences"->"Advanced"->"Turn off rendering at: " [1000000] "elements"
 
 
-//duplo(2,2,1,true,false);
+duplo(4,4,2,true,false);
 
 
 
@@ -105,7 +105,7 @@ module duplo(width,length,height,topNibbles,bottomHoles)
    difference() 
    {
       union()
-       {
+      {
          for(j=[1:length])
          {   
             translate([0,ns-(j-length/2)*dr,0 ]) cube([effWidth,littleWallThickness,height*duploHeight],true);
@@ -132,6 +132,15 @@ module duplo(width,length,height,topNibbles,bottomHoles)
             translate([0,(+j-length/2 - 0.5)*dr,0 ])
                cube([ duploNibbleRadius*2+duploGapBottom,duploNibbleRadius*2+duploGapBottom,height*duploHeight+2],true);
          }
+   }
+   
+   for(j=[1:length-1])
+   {   
+      translate([0,(j-length/2)*dr,0 ]) cube([effWidth,duploWall,height*duploHeight],true);
+   }
+   for (i = [1:width-1])
+   {
+      translate([(i-width/2)*dr,0,0 ]) cube([duploWall,effLength,height*duploHeight],true);
    }
    }
 }

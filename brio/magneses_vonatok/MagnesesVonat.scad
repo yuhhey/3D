@@ -1,11 +1,106 @@
+use <../../duplo/duplo-block-lib.scad>
+
 $fa=1;
 $fs=0.5;
 
 //tartalyvagon();
 //szenesvagon();
 //mozdony();
-//szemelyvagon();
+//SzemelyVagon();
 //NagyTartalyVagon();
+//LegoVagon();
+//NagySzenesVagon();
+NagyKontenerVagon();
+
+module NagyKontenerVagon(){ //makeme
+     difference(){
+        tz = -11;
+        tx = 25;
+        union(){
+            difference(){
+                union(){
+                    translate([-45,0,12.5]) minkowski(){
+                       rotate([90,0,90]) linear_extrude(90) polygon([[6.5,-15],[14,-10],[14,10],[-14,10],[-14,-10], [-6.5,-15]]);
+                        cylinder(r=0.5, h=1, center=true);
+                    }
+                    translate([0,0,-8])minkowski(){
+                        cube([90,13,12], center=true);
+                        cylinder(r=3, h=1, center=true);
+                    }
+                }
+                kerekdob(tx,tz);
+                //translate([0,0,19])cube([90,24,25], center=true);
+            }
+            tengely(tx,tz);
+            tengely(-tx, tz);
+            translate([-46,0,tz+3]) utkozo();
+            translate([46,0, tz+3]) utkozo();
+
+        }
+        for(y = [-14.5, 14.5]){
+            for(x = [-42,-36,-30,-24,-18,-12,-6,0,6,12,18,24,30,36,42]){
+                translate([x, y, 12.5]) cube([5,1,18], center=true);
+            }
+        }
+        for(x = [-45,45]){
+            for(y= [-9,-4.5,-1.5,1.5,4.5,9]){
+            translate([x,y,12.5]) cube([2,2,18], center=true);
+            }
+        }
+        
+        for(x =[-42,-36,-30,-24,-18,-12,-6,0,6,12,18,24,30,36,42]){
+            translate([x,0,23]) cube([5,26,2], center=true);
+        }
+        tengelyfurat(tx, tz);
+        tengelyfurat(-tx, tz);
+        translate([-44,0,-9.1])magnestarto();
+        translate([44,0,-9.1])magnestarto();       
+    }  
+}
+
+
+
+module NagySzenesVagon(){ //makeme
+     difference(){
+        tz = -11;
+        tx = 25;
+        union(){
+            difference(){
+                union(){
+                    translate([-45,0,12.5]) minkowski(){
+                       rotate([90,0,90]) linear_extrude(90) polygon([[6.5,-15],[12,-10],[12,10],[-12,10],[-12,-10], [-6.5,-15]]);
+                        cylinder(r=3, h=1, center=true);
+                    }
+                    translate([0,0,-5])minkowski(){
+                        cube([90,13,18], center=true);
+                        cylinder(r=3, h=1, center=true);
+                    }
+                }
+                kerekdob(tx,tz);
+                translate([0,0,19])cube([90,24,25], center=true);
+            }
+            tengely(tx,tz);
+            tengely(-tx, tz);
+            translate([-46,0,tz+3]) utkozo();
+            translate([46,0, tz+3]) utkozo();
+
+        }
+        for(y = [-14.5, 14.5]){
+            for(x = [-44,-40,-35,-31,-26,-21,-17,-13,-8,-3,0, 3,8,13,17,21,26,31,35,40,44]){
+                translate([x, y, 12.5]) cube([4.1,1,18], center=true);
+            }
+        }
+        for(x = [-48,48]){
+            for(y= [-12,-9,-6,-3,-2,0,2,3,6,9,12]){
+            translate([x,y,12.5]) cube([2,2.1,18], center=true);
+            }
+        }
+        tengelyfurat(tx, tz);
+        tengelyfurat(-tx, tz);
+        translate([-44,0,-9.1])magnestarto();
+        translate([44,0,-9.1])magnestarto();       
+    }  
+}
 
 
 module NagyTartalyVagon(){ // makeme
@@ -14,22 +109,17 @@ module NagyTartalyVagon(){ // makeme
         tx = 25;
         union(){
             difference(){
-                
-                        union(){
-                            intersection(){
-                                translate([0,0,17])sphere(r=48, center=true);
-                                translate([0,0,17])rotate([0,90,0])cylinder(r=15, h=100, center=true);
-                            }
-                            minkowski(){
-                                translate([0,0,-5])cube([90,20,18], center=true);
-                                cylinder(r=3, h=1, center=true);
-                        } 
-                }
-                translate([tx, 14.5, tz]) rotate([90,0,0])cylinder(r1=16, r2=11, h=10, center=true);
-                translate([tx, -14.5, tz]) rotate([90,0,0])cylinder(r1=11, r2=16, h=10, center=true);
-                translate([-tx, 14.5, tz]) rotate([90,0,0])cylinder(r1=16, r2=11, h=10, center=true);
-                translate([-tx, -14.5, tz]) rotate([90,0,0])cylinder(r1=11, r2=16, h=10, center=true);
-                
+                union(){
+                    intersection(){
+                        translate([0,0,17])sphere(r=48, center=true);
+                        translate([0,0,17])rotate([0,90,0])cylinder(r=15, h=100, center=true);
+                    }
+                    minkowski(){
+                        translate([0,0,-5])cube([90,20,18], center=true);
+                        cylinder(r=3, h=1, center=true);
+                    }     
+                }                
+                kerekdob(tx,tz);
             }
             tengely(tx,tz);
             tengely(-tx, tz);
@@ -38,7 +128,6 @@ module NagyTartalyVagon(){ // makeme
         }
         tengelyfurat(tx, tz);
         tengelyfurat(-tx, tz);
-        
         translate([-44,0,-9.1])magnestarto();
         translate([44,0,-9.1])magnestarto();       
     }
@@ -51,40 +140,34 @@ module SzemelyVagon(){ // makeme
         union(){
             difference(){
                 minkowski(){
-                    minkowski(){
                         minkowski(){
                             union(){
-                                cube([96,20,20], center=true);
-                                translate([0,0,9])rotate([0,90,0])cylinder(r=10, h=96, center=true);
-                                
+                                translate([0,0,-2])cube([96,24,20], center=true);
+                                translate([0,0,10])rotate([0,90,0])cylinder(r=12, h=96, center=true);   
                             }
-                            rotate([0,90,0])cylinder(r=2, h=1, center=true);
-                            //translate([42,0,-40])sphere(r=100);
-                            //translate([-42,0,-40])sphere(r=100);
-                           
-                        }
                         rotate([90,0,0])cylinder(r=2, h=1, center=true);
                     }
                     cylinder(r=2, h=1, center=true);
                 }
-                translate([tx, 14.5, tz]) rotate([90,0,0])cylinder(r1=16, r2=11, h=10, center=true);
-                translate([tx, -14.5, tz]) rotate([90,0,0])cylinder(r1=11, r2=16, h=10, center=true);
-                translate([-tx, 14.5, tz]) rotate([90,0,0])cylinder(r1=16, r2=11, h=10, center=true);
-                translate([-tx, -14.5, tz]) rotate([90,0,0])cylinder(r1=11, r2=16, h=10, center=true);
+                kerekdob(tx, tz);
                 //Ajtók
-                translate([45,-14.5,0])cube([7,1.6,20], center=true);
-                translate([-45,-14.5,0])cube([7,1.6,20], center=true);
-                translate([45,14.5,0])cube([7,1.6,20], center=true);
-                translate([-45,14.5,0])cube([7,1.6,20], center=true);
+                for (x = [45, -45]){
+                    for (y = [14.5, -14.5]){
+                        translate([x,y,-0.5])minkowski(){
+                            cube([7,1,20], center=true);
+                            rotate([90,0,0])cylinder(r=1,h=1, center=true);
+                        }
+                    }
+                }
                 //Ablakok
                 for(x = [-35:10:35]){
                     translate([x,14.5,6.5]) minkowski(){
-                        cube([6,1.6,6], center=true);
-                        rotate([90,0,0])cylinder(r=1,h=1);
+                        cube([6,1,6], center=true);
+                        rotate([90,0,0])cylinder(r=1,h=1, center=true);
                     }
                     translate([x,-14.5,6.5]) minkowski(){
-                        cube([6,1.6,6], center=true);
-                        rotate([90,0,0])cylinder(r=1,h=1);
+                        cube([6,1,6], center=true);
+                        rotate([90,0,0])cylinder(r=1,h=1,center=true);
                     }
                 }
             }
@@ -95,7 +178,6 @@ module SzemelyVagon(){ // makeme
         }
         tengelyfurat(tx, tz);
         tengelyfurat(-tx, tz);
-        
         translate([-47.5,0,-9])magnestarto();
         translate([47.5,0,-9])magnestarto();       
     }
@@ -172,6 +254,35 @@ module SzenesVagon(){ //makeme
 }
 
 
+module LegoVagon(){ //makeme
+   difference(){
+        tz = -11;
+        tx = 20;
+        union(){
+            difference(){
+                union(){
+                    translate([0,0,-0.5])duplo(4,2,1, true,true);
+                    minkowski(){
+                        translate([0,0,-5])cube([70,26,18], center=true);
+                        cylinder(r=3, h=1, center=true);
+                    }
+                }
+                kerekdob(tx,tz);
+            
+            }
+            
+            tengely(tx,tz);
+            tengely(-tx, tz);
+            translate([-36,0,tz+3]) utkozo();
+            translate([36,0, tz+3]) utkozo();
+        }
+        
+        tengelyfurat(tx, tz);
+        tengelyfurat(-tx, tz);
+        translate([-34,0,-9.1])magnestarto();
+        translate([34,0,-9.1])magnestarto();       
+    }
+}
 module steps(r, angle){
     lr = r+0.5;
     for (s = [angle: 10: 60]){ 
@@ -251,6 +362,14 @@ module szenes(){
 
 module kerekcsonk(o){
     rotate([o*90,0,0])cylinder(r1=3.5, r2=1.3, h=3, center=true);
+}
+
+
+module kerekdob(tx,tz){
+translate([tx, 14.5, tz]) rotate([90,0,0])cylinder(r1=16, r2=11, h=10, center=true);
+                translate([tx, -14.5, tz]) rotate([90,0,0])cylinder(r1=11, r2=16, h=10, center=true);
+                translate([-tx, 14.5, tz]) rotate([90,0,0])cylinder(r1=16, r2=11, h=10, center=true);
+                translate([-tx, -14.5, tz]) rotate([90,0,0])cylinder(r1=11, r2=16, h=10, center=true);
 }
 
 module tengely(x,z){
