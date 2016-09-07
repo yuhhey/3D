@@ -44,7 +44,7 @@ module wheel_spacer(axel_radius, $fn=100) {
 /*
  * Module to render a wheel for a toy train.  You'll want to print 4 or 6
  */
-module wheel(axel_radius, $fn=100) {
+module wheel(axel_radius, $fn=200) {
 
 	// Diameters:
 	//   Thomas: 19.4
@@ -125,5 +125,6 @@ axel_radius = 1.13 / .9;
 
 // Render
 wheel(axel_radius);
-translate([15,0,0])
+/*translate([15,0,0])
 	wheel_spacer(axel_radius);
+*/
