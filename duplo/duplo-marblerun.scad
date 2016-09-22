@@ -9,7 +9,7 @@
 // The duplo-block-lib is derived from http://www.thingiverse.com/thing:1778
 include <duplo-block-lib.scad>
 
-quality = 90; // quality: low/fast (e.g. 10) for design, high/slow (e.g. 50) for final rendering 
+quality = 10; // quality: low/fast (e.g. 10) for design, high/slow (e.g. 50) for final rendering 
 innerRadius=14*dr/16;
 
 pr = 2*dr + 5; // plate raster
@@ -37,24 +37,44 @@ pr = 2*dr + 5; // plate raster
 //bridgePiece();
 //bridgeBottomPiece();
 
+cso_angle(10,2,20, 225);
 
-module conePieceNo3()  // makeme
-{
+module cso(r_out, w_wall, h){
+    difference(){
+        cylinder(r=r_out, h=h);
+        translate([0,0,-0.05])cylinder(r=r_out-w_wall, h=h+0.1);
+    }
+}
+
+module cso_angle(r_out, w_wall, h, angle){
+    difference(){
+        k_angle = (angle)/2;
+        x=2*r_out*cos(k_angle);
+        y=2*r_out*sin(k_angle);
+        echo(x,y, -y, h);
+        cso(r_out, w_wall, h);
+        translate([0,0,-0.5])intersection(){
+            cylinder(r=r_out+1, h=h+1);
+            linear_extrude(height=h+1)
+                polygon(points=[[0,0],[x,-y],[2*r_out,0],[x,y],[0,0]]);
+        }
+    }
+}
+
+module conePieceNo3(){  // makeme
+
     conePiece3(3, support=1);
 }
 
-module conePieceNo4()  // makeme
-{
+module conePieceNo4(){  // makeme
     conePiece3(4, support=1);
 }
 
-module conePieceNo5()  // makeme
-{
+module conePieceNo5(){  // makeme
     conePiece3(5, support=1);
 }
 
-module bridgePiece()  // makeme
-{
+module bridgePiece(){  // makeme
     difference()
     {
         duploMarbleRunBase(4,2,2, true, false);
