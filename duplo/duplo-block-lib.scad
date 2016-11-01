@@ -19,10 +19,10 @@ duploHeight=duploRaster * 0.6;
 
 
 // nibble radius: a square brick with size (dr x dr) turned by 45° on a neighbor nibble fits exactly:
-duploNibbleRadius = dr * (1-1/1.41421) +0.1; // = 4.686+0.1,  dr*(1-1/sqrt(2))
+duploNibbleRadius = dr * (1-1/1.41421) +0.0; // = 4.686+0.1,  dr*(1-1/sqrt(2))
 duploBottomNibbleRadius = dr*(1.41421-1); //= dr * 1.41421 / 2  - duploNibbleRadius = 6.6277
 duploGapBottom = -0.05; // recommended range from -0.1 to 0.1 with lower values for tighter fit.
-gapBetweenBricks = 0.3; // real duplo probably has 0.4
+gapBetweenBricks = 0.4; // real duplo probably has 0.4
 duploWall = 1.2   ;// For duplo compatibility this is not so important, only if smaller lego should fit.
                    // (dr/2 - duploNibbleRadius - gapBetweenBricks)/2 = 1.507
 firstLayerGap = 0.2; // for easier fit and to compensate for printers that print a thicker bottom
@@ -34,7 +34,7 @@ quality = 60; // quality: low/fast (e.g. 10) for design, high/slow (e.g. 50) for
 // if some pieces are missing: "Edit"->"Preferences"->"Advanced"->"Turn off rendering at: " [1000000] "elements"
 
 
-duplo(4,4,2,true,false);
+//duplo(4,4,2,true,false);
 
 
 
@@ -82,7 +82,7 @@ module duplo(width,length,height,topNibbles,bottomHoles)
                translate([ns-(i-width*0.5)*dr,ns-(j-length*0.5)*dr,-0.1-height*duploHeight/2])
                {
                   cylinder(r=duploNibbleRadius+0.2,h=6,center=false,$fn = quality);
-                  cylinder(r=duploNibbleRadius+0.4,h=0.5,center=false,$fn = quality);
+                  cylinder(r1=duploNibbleRadius+0.8,r2=duploNibbleRadius+0.2, h=1,center=false,$fn = quality);
                }
             }
          }
