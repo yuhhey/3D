@@ -13,7 +13,7 @@ bks = [[k,k,0],
 
 r_run=9;
 w_run = 2*r_run;
-quality=10;
+quality=40;
 
 cuboro_No42();
 
@@ -471,8 +471,8 @@ module cuboro_No41(){ // makeme
 
 
 module cuboro_No42(){ // makeme
-    cuboro(n="42", n_rot=[0, 90, 180, 270], is_n_side=false){
-        Felul() translate([0,0,-10])cylinder(r2=w_run, r1=r_run, h=15);
+    cuboro(n="42", n_rot=[0, 90, 180, 270], is_n_side=true, ba=false, bf=false, ja=false, jf=false){
+        Felul() translate([0,0,-10])cylinder(r2=w_run+5, r1=r_run, h=11);
         translate([0,0, 11]) Alul() Felfele() jobbKanyar();
     }
 }
