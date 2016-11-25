@@ -13,9 +13,9 @@ bks = [[k,k,0],
 
 r_run=9;
 w_run = 2*r_run;
-quality=40;
+quality=10;
 
-cuboro_No42();
+cuboro_NoD69();
 
 
 module hullam(r, d){
@@ -45,6 +45,29 @@ module cuboro_No(){
     cuboro(n="", n_rot=0, is_n_side=false){
     }
 
+}
+
+
+module cuboro_NoD69(){ // makeme
+    cuboro(n="D69", n_rot=[0, 90, 180], is_n_side=true, bf=false){
+        Kozepen(){
+            Felul() balKanyar();
+            alfa=atan(fely()/cube_side);
+            translate([0, fely()/2,0])rotate(alfa) lejtosAlagut();
+            translate([0, -fely()/2,0])rotate(-alfa) lejtosAlagut();
+        }
+    }
+}
+
+module cuboro_NoD59(){ // makeme
+    cuboro(n="D59", n_rot=[0, 90, 180], is_n_side=true, ba=false){
+        Kozepen(){
+            Felul() jobbKanyar();
+            alfa=atan(fely()/cube_side);
+            translate([0, fely()/2,0])rotate(alfa) lejtosAlagut();
+            translate([0, -fely()/2,0])rotate(-alfa) lejtosAlagut();
+        }
+    }
 }
 
 module cuboro_NoD22(){ // makeme
@@ -95,7 +118,7 @@ module cuboro_NoD16(){ // makeme
     }
 }
 
-module cuboro_NoD15(){ //makeme
+module cuboro_NoD15(){ // makeme
     cuboro(n="D15", n_rot=[0,90], is_n_side=true, bf=false, ba=false){
         Felul(){
            mirror([0,1,0]) felesEgeszAlagut();
