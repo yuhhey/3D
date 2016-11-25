@@ -15,7 +15,7 @@ r_run=9;
 w_run = 2*r_run;
 quality=10;
 
-cuboro_No98();
+cuboro_No42();
 
 
 module hullam(r, d){
@@ -468,6 +468,15 @@ module cuboro_No41(){ // makeme
         Alul() jobbKanyar();
     }
 }
+
+
+module cuboro_No42(){ // makeme
+    cuboro(n="42", n_rot=[0, 90, 180, 270], is_n_side=false){
+        Felul() translate([0,0,-10])cylinder(r2=w_run, r1=r_run, h=15);
+        translate([0,0, 11]) Alul() Felfele() jobbKanyar();
+    }
+}
+
 
 module cuboro_No43(){ // makeme
     cuboro(n="43", n_rot=[0, 180], is_n_side=false){
