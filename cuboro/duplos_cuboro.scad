@@ -13,9 +13,9 @@ bks = [[k,k,0],
 
 r_run=9;
 w_run = 2*r_run;
-quality=10;
+quality=180;
 
-cuboro_NoD69();
+//cuboro_NoD69();
 
 
 module hullam(r, d){
@@ -46,8 +46,6 @@ module cuboro_No(){
     }
 
 }
-
-
 module cuboro_NoD69(){ // makeme
     cuboro(n="D69", n_rot=[0, 90, 180], is_n_side=true, bf=false){
         Kozepen(){
@@ -766,7 +764,6 @@ module nagyKivagas(){
                                     circle(r = r_run,$fn=quality);
 }
     
-
 function fely(n=1) = r_run+n*(cube_side-2*w_run)/3/2;
 
 module duplaAlagut(){
@@ -857,10 +854,6 @@ module felesEgeszJobb(){
 module felesEgeszBal(){
     mirror([0,1,0]) felesEgeszJobb();
 }
-
-
-
-
 
 module felesEgeszAlagut(){
     translate([-33-fely(), fely(),0]) alagut();
