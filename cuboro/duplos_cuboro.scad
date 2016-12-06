@@ -4,19 +4,17 @@ include <../dotscad/pie.scad>
 //$fa=1;
 cube_side=48-gapBetweenBricks;
 
-k=48/2-8;
-
-bks = [[k,k,0],
-       [k,-k,0],
-       [-k,k,0],
-       [-k,-k,0]];
-
 r_run=9;
 w_run = 2*r_run;
-quality=180;
+quality=20;
 
-//cuboro_NoD69();
 
+//Újra építeni: D18, D17, D16, D15
+//translate([cube_side, cube_side,0])rotate(90)
+place() cuboro_No2();
+place(x=1, r=90) cuboro_NoD15();
+place(z=1, r=90) cuboro_No3();
+place(x=1, y=-1, r=-90) cuboro_NoD8();
 
 module hullam(r, d){
     //echo((2*r-d)/(2*r));
@@ -40,6 +38,9 @@ module hullam_alfa(r, alfa){
             iv(r, angle=alfa);
 }
 
+module place(x=0, y=0, z, r=0){
+    translate([x*cube_side, y*cube_side, z*cube_side]) rotate(r) children();
+}
 
 module cuboro_No(){
     cuboro(n="", n_rot=0, is_n_side=false){
@@ -847,7 +848,7 @@ module duplaJobbKanyar(){
 }
 
 module felesEgeszJobb(){
-    translate([-fely(), -2*fely(1.5),0]) iv_90fokos(r=fely(2));
+    translate([-(cube_side-w_run)/2+2, -2*fely(1.5),0]) iv_90fokos(r=fely(2));
             translate([-30-fely(), -fely(),0]) alagut();
 }
 
