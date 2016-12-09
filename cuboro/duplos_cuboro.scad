@@ -2,7 +2,7 @@ include <../duplo/duplo-block-lib.scad>
 include <../dotscad/pie.scad>
 //$fs=1;
 //$fa=1;
-cube_side=48-gapBetweenBricks;
+cube_side=3*duploRaster-gapBetweenBricks;
 
 r_run=9;
 w_run = 2*r_run;
@@ -10,11 +10,11 @@ quality=180;
 
 
 //Újra építeni: D18, D17, D16, D15
-//translate([cube_side, cube_side,0])rotate(90)
-//place() cuboro_No2();
-//place(x=1, r=90) cuboro_NoD15();
-//place(z=1, r=90) cuboro_No3();
-//place(x=1, y=-1, r=-90) cuboro_NoD8();
+/*place() cuboro_No2();
+place(x=1, r=90) cuboro_NoD15();
+place(z=1, r=90) cuboro_No3();
+place(x=1, y=-1, r=-90) cuboro_NoD8();*/
+cuboro_No1();
 
 module hullam(r, d){
     //echo((2*r-d)/(2*r));
@@ -44,6 +44,12 @@ module place(x=0, y=0, z, r=0){
 
 module cuboro_No(){
     cuboro(n="", n_rot=0, is_n_side=false){
+    }
+
+}
+
+module cuboro_No1(){
+    cuboro(n="1", n_rot=[0, 90, 180, 270], is_n_side=true){
     }
 
 }
