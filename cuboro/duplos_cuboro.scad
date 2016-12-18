@@ -14,7 +14,7 @@ quality=180;
 place(x=1, r=90) cuboro_NoD15();
 place(z=1, r=90) cuboro_No3();
 place(x=1, y=-1, r=-90) cuboro_NoD8();*/
-cuboro_No1();
+//cuboro_No94();
 
 module hullam(r, d){
     //echo((2*r-d)/(2*r));
@@ -646,6 +646,15 @@ module cuboro_No93(){ // makeme
         }
         rotate(90) Alul() alagut();
     }
+}
+
+
+module cuboro_No94(){
+    cuboro(n="94", n_rot=[0, 180], is_n_side=false){
+        Felul() alagut();
+        Kozepen() lejtosAlagut();
+    }
+
 }
 
 module cuboro_No95(){ // makeme
