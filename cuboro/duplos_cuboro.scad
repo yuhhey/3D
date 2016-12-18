@@ -6,7 +6,7 @@ cube_side=3*duploRaster-gapBetweenBricks;
 
 r_run=9;
 w_run = 2*r_run;
-quality=180;
+quality=10;
 
 
 //Újra építeni: D18, D17, D16, D15
@@ -14,7 +14,7 @@ quality=180;
 place(x=1, r=90) cuboro_NoD15();
 place(z=1, r=90) cuboro_No3();
 place(x=1, y=-1, r=-90) cuboro_NoD8();*/
-//cuboro_No94();
+cuboro_No2();
 
 module hullam(r, d){
     //echo((2*r-d)/(2*r));
@@ -206,13 +206,13 @@ module cuboro_NoAtis1(){ // makeme
 }
 
 module cuboro_No2(){ // makeme
-    cuboro(n=" 2", n_rot=[0,180]){
+    cuboro(n="2", n_rot=[0,180]){
         Kozepen() alagut();
         Felul() alagut();
     }
 }
 module cuboro_No3(){ // makeme
-    cuboro(n=" 3", n_rot=[0,180]){
+    cuboro(n="3", n_rot=[0,180]){
         rotate([0,0,90]) Alul() alagut();
         Kozepen() alagut();
         Felul() alagut();
@@ -220,21 +220,21 @@ module cuboro_No3(){ // makeme
 }
 
 module cuboro_No4(){  // makeme
-    cuboro(n=" 4", n_rot=[0,180], is_n_side=true){
+    cuboro(n="4", n_rot=[0,180], is_n_side=true){
         Kozepen() alagut();
         Felul() kereszt();
     }
 }
 
 module cuboro_No5(){ // makeme
-    cuboro(n=" 5",n_rot=[-90, 180], bf=false){
+    cuboro(n="5",n_rot=[-90, 180], bf=false){
         Kozepen() alagut();
         Felul() balKanyar();
     }
 }
 
 module cuboro_No6(){ // makeme
-    cuboro(n=" 6",n_rot=[0,270], ba=false){
+    cuboro(n="6",n_rot=[0,270], ba=false){
         Kozepen() alagut();
         Felul() jobbKanyar();
     }
@@ -242,7 +242,7 @@ module cuboro_No6(){ // makeme
 
 
 module cuboro_No7(){ // makeme
-    cuboro(n=" 7",n_rot=[180,270], bf=false){
+    cuboro(n="7",n_rot=[180,270], bf=false){
         Felul() balKanyar();
         Alul() FerdeAlagutBalra();
     }
@@ -250,14 +250,14 @@ module cuboro_No7(){ // makeme
 
 
 module cuboro_No8(){ // makeme
-    cuboro(n=" 8",n_rot=[180,270], bf=false){
+    cuboro(n="8",n_rot=[180,270], bf=false){
         Felul() balKanyar();
         Alul() FerdeAlagutJobbra();
     }
 }
 
 module cuboro_No9(){ // makeme
-    cuboro(n=" 9", n_rot=[0,180]){
+    cuboro(n="9", n_rot=[0,180]){
         Felul() alagut();
         Alul() FerdeAlagutBalra();
     }
@@ -697,6 +697,15 @@ module cuboro_No98(){ // makeme
     }
 }
 
+module cuboro_No104(){
+    cuboro(n="104", n_rot=[0, 180], is_n_side=true, z_pos=-20){
+        Felul() kereszt();
+        Kozepen() kereszt();
+        Alul() alagut();
+    }
+
+}
+
 
 module cuboro(n,
                 n_rot = [0], 
@@ -721,12 +730,12 @@ module cuboro(n,
         for(a=n_rot){
             rotate(a) 
                 if (is_n_side){
-                   translate([-7, -cube_side/2+2, z_pos])rotate([90,0,0]) linear_extrude(height=2)text(text=n, font="Courier Bold", size=8);
+                   translate([0, -cube_side/2+2, z_pos])rotate([90,0,0]) linear_extrude(height=2)text(text=n, font="Courier Bold", size=8, halign="center");
                 }
                 else{   
-                   translate([-7,12,cube_side/2-2])
+                   translate([0,12,cube_side/2-2])
                        linear_extrude(height=2.2) 
-                           text(text=n, font="Courier Bold", size=8);
+                           text(text=n, font="Courier Bold", size=8, halign="center");
                 }
         }
     }       
