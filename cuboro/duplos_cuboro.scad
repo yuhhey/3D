@@ -6,7 +6,7 @@ cube_side=3*duploRaster-gapBetweenBricks;
 
 r_run=9;
 w_run = 2*r_run;
-quality=10;
+quality=180;
 
 
 //Újra építeni: D18, D17, D16, D15
@@ -14,7 +14,7 @@ quality=10;
 place(x=1, r=90) cuboro_NoD15();
 place(z=1, r=90) cuboro_No3();
 place(x=1, y=-1, r=-90) cuboro_NoD8();*/
-cuboro_No2();
+//cuboro_No2();
 
 module hullam(r, d){
     //echo((2*r-d)/(2*r));
