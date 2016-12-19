@@ -6,7 +6,7 @@ cube_side=3*duploRaster-gapBetweenBricks;
 
 r_run=9;
 w_run = 2*r_run;
-quality=180;
+quality=10;
 
 
 //Újra építeni: D18, D17, D16, D15
@@ -706,6 +706,50 @@ module cuboro_No104(){
 
 }
 
+module cuboro_No105(){
+    cuboro(n="105", n_rot=[90,180], jf= false, is_n_side=false){
+        rotate(-90) Felul() balKanyar();
+        Kozepen() lejtosAlagut();
+    }
+
+}
+
+module cuboro_No106(){
+    cuboro(n="106", n_rot=[0, 90], ja=false, is_n_side=false){
+        rotate(180) Felul() balKanyar();
+        Kozepen() lejtosAlagut();
+    }
+
+}
+
+module cuboro_No107(){
+    cuboro(n="107", n_rot=[0, -90], ba=false, is_n_side=false){
+        rotate(90) Felul() balKanyar();
+        Alul() FerdeAlagutBalra();
+    }
+
+}
+
+module cuboro_No108(){
+    cuboro(n="108", n_rot=[0, 90], ja=false, is_n_side=false){
+        rotate(180) Felul() balKanyar();
+        Alul() FerdeAlagutJobbra();
+    }
+
+}
+
+module cuboro_No113(){
+    cuboro(n="113", n_rot=[0, 180], bf=false, ja=false, is_n_side=true){
+        Felul(){
+            balKanyar();
+            rotate(90) jobbKanyar();
+        }
+        Kozepen() alagut();
+        Alul() alagut();
+    }
+
+}
+cuboro_No113();
 
 module cuboro(n,
                 n_rot = [0], 
