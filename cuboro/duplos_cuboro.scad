@@ -1,5 +1,5 @@
 include <../duplo/duplo-block-lib.scad>
-include <../dotscad/pie.scad>
+include <../../dotscad/pie.scad>
 //$fs=1;
 //$fa=1;
 cube_side=3*duploRaster-gapBetweenBricks;
