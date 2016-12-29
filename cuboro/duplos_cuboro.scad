@@ -1,12 +1,12 @@
 include <../duplo/duplo-block-lib.scad>
-include <../dotscad/pie.scad>
+include <../../dotscad/pie.scad>
 //$fs=1;
 //$fa=1;
 cube_side=3*duploRaster-gapBetweenBricks;
 
 r_run=9;
 w_run = 2*r_run;
-quality=10;
+quality=180;
 
 
 //Újra építeni: D18, D17, D16, D15
@@ -14,7 +14,30 @@ quality=10;
 place(x=1, r=90) cuboro_NoD15();
 place(z=1, r=90) cuboro_No3();
 place(x=1, y=-1, r=-90) cuboro_NoD8();*/
-//cuboro_No2();
+cuboro_No22();
+
+//golyok(1); 
+
+module golyok(n){ // make me
+    for(x = [-n:n]){
+        for(y = [-2*n:2*n]){
+            translate([x*(2*w_run),y*w_run,0]) golyo();
+        }
+    }
+}
+module golyo(){ // make me
+    translate([-r_run+1,0,0])rotate([180,0,0])felgolyo();
+    translate([r_run-1,0,0])rotate([180,0,0])felgolyo();
+}
+
+module felgolyo(){
+    difference(){
+        sphere(r=r_run-3, $fn=quality/3);
+        translate([0,0,(r_run)])cube(2*r_run,center=true, $fn=quality/3);
+        cylinder(r=2.1,h=r_run, center=true, $fn=quality/3);
+        translate([0,0,-0.5])cylinder(r2=3, r1=2.1, h=1.5, center=true, $fn=quality/3);
+    }
+}
 
 module hullam(r, d){
     //echo((2*r-d)/(2*r));
@@ -48,7 +71,7 @@ module cuboro_No(){
 
 }
 
-module cuboro_No1(){
+module cuboro_No1(){ // makeme
     cuboro(n="1", n_rot=[0, 90, 180, 270], is_n_side=true){
     }
 
@@ -649,7 +672,7 @@ module cuboro_No93(){ // makeme
 }
 
 
-module cuboro_No94(){
+module cuboro_No94(){ // makeme
     cuboro(n="94", n_rot=[0, 180], is_n_side=false){
         Felul() alagut();
         Kozepen() lejtosAlagut();
@@ -697,7 +720,7 @@ module cuboro_No98(){ // makeme
     }
 }
 
-module cuboro_No104(){
+module cuboro_No104(){ // makeme
     cuboro(n="104", n_rot=[0, 180], is_n_side=true, z_pos=-20){
         Felul() kereszt();
         Kozepen() kereszt();
@@ -706,7 +729,7 @@ module cuboro_No104(){
 
 }
 
-module cuboro_No105(){
+module cuboro_No105(){ // makeme
     cuboro(n="105", n_rot=[90,180], jf= false, is_n_side=false){
         rotate(-90) Felul() balKanyar();
         Kozepen() lejtosAlagut();
@@ -714,7 +737,7 @@ module cuboro_No105(){
 
 }
 
-module cuboro_No106(){
+module cuboro_No106(){ // makeme
     cuboro(n="106", n_rot=[0, 90], ja=false, is_n_side=false){
         rotate(180) Felul() balKanyar();
         Kozepen() lejtosAlagut();
@@ -722,7 +745,7 @@ module cuboro_No106(){
 
 }
 
-module cuboro_No107(){
+module cuboro_No107(){ // makeme
     cuboro(n="107", n_rot=[0, -90], ba=false, is_n_side=false){
         rotate(90) Felul() balKanyar();
         Alul() FerdeAlagutBalra();
@@ -730,7 +753,7 @@ module cuboro_No107(){
 
 }
 
-module cuboro_No108(){
+module cuboro_No108(){ // makeme
     cuboro(n="108", n_rot=[0, 90], ja=false, is_n_side=false){
         rotate(180) Felul() balKanyar();
         Alul() FerdeAlagutJobbra();
@@ -738,7 +761,7 @@ module cuboro_No108(){
 
 }
 
-module cuboro_No113(){
+module cuboro_No113(){ // makeme
     cuboro(n="113", n_rot=[0, 180], bf=false, ja=false, is_n_side=true){
         Felul(){
             balKanyar();
@@ -749,7 +772,7 @@ module cuboro_No113(){
     }
 
 }
-cuboro_No113();
+
 
 module cuboro(n,
                 n_rot = [0], 
