@@ -19,7 +19,7 @@
  * @source     https://github.com/dotscad/trains/blob/master/tracklib.scad
  */
 
-use <tracklib.scad>
+use <../tracklib.scad>
 curved_switch_left();
 
 module curved_switch_right(){
