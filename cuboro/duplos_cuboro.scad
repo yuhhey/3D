@@ -6,15 +6,14 @@ cube_side=3*duploRaster-gapBetweenBricks;
 
 r_run=9;
 w_run = 2*r_run;
-quality=180;
+quality=18;
 
-
-//Újra építeni: D18, D17, D16, D15
 /*place() cuboro_No2();
 place(x=1, r=90) cuboro_NoD15();
 place(z=1, r=90) cuboro_No3();
 place(x=1, y=-1, r=-90) cuboro_NoD8();*/
-cuboro_No22();
+//cuboro_No22();
+cuboro();
 
 //golyok(1); 
 
@@ -775,10 +774,10 @@ module cuboro_No113(){ // makeme
 
 
 module cuboro(n,
-                n_rot = [0], 
-                is_n_side=false,
-                z_pos=0,
-                bf=true, jf=true, ba=true, ja=true){
+              n_rot = [0], 
+              is_n_side=false,
+              z_pos=0,
+              bf=true, jf=true, ba=true, ja=true){
     k=48/2-8;
     //t=40-1.5*gapBetweenBricks;
 
@@ -789,8 +788,9 @@ module cuboro(n,
     
     difference(){
         minkowski(){
-            cube([cube_side-2,cube_side-2,46], center=true);
-            sphere(r=1, $fn=quality);
+            gombolyites=2;
+            cube([cube_side-2*gombolyites-gapBetweenBricks,cube_side-2*gombolyites-gapBetweenBricks,48-2*gombolyites-gapBetweenBricks], center=true);
+            sphere(r=gombolyites, $fn=quality);
         }
         children();            
         translate([0,0,-24.05+duploHeight/2]) also_csatlakozo();
@@ -910,7 +910,7 @@ module csatlakozo(){
 
 module also_csatlakozo(){
     difference(){
-        cube([47,47,9.5],center=true);
+        cube([47,47,9.6],center=true);
         duplo(3,3,1,false,true);
     }
 }
