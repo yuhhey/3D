@@ -31,15 +31,19 @@ module duplacsatlakozoproba(){
 //vegelem();
 
 module kezdoelem(){ // makeme
-    kozepelem(cs1=false);
+    elem(cs1=false);
+}
+
+module kozepelem(){ // makeme
+    elem();
 }
 
 module vegelem(){ // makeme
-    kozepelem(cs2=false);
+    elem(cs2=false);
 }
 
 
-module kozepelem(cs1=true, cs2=true){ // makeme
+module elem(cs1=true, cs2=true){
         csm=[15,40,50,8,5,5];
         gap = 0.5;
         
@@ -70,12 +74,12 @@ module csatlakozo(csm)
     R=csm[5];
     translate([-cw/2, -sz/2, -h/2]){
         cube([cw,sz,ch]);
-        translate([0,sz,ch])rotate([90,0,0])linear_extrude(height=sz)polygon([[0,0], [cw, 0], [0,5], [0,0]]);
+        translate([0,sz,ch])rotate([90,0,0])linear_extrude(height=sz)polygon([[0,0], [cw, 0], [0,cw+1], [0,0]]);
         translate([0,(sz-ny)/2,0])
         intersection()
         {
             //R=(sz/4+1)/2;
-            translate([0,R+ny/2,0])rotate([90,0,0])linear_extrude(height=2*R)polygon([[0,0], [cw, 0], [cw, h-ch], [0,h], [0,0]]);
+            translate([0,R+ny/2,0])rotate([90,0,0])linear_extrude(height=2*R)polygon([[0,0], [cw, 0], [cw, h-cw-1], [0,h], [0,0]]);
             union(){
                 cube([ny, ny,h]);
                 translate([cw-R-0.7,ny/2,0]) cylinder(r=R, h=h,$fn=80);
