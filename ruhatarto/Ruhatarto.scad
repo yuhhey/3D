@@ -10,9 +10,10 @@ gap=0.3;
 gap_v = [gap, 2*gap, gap, gap, 2*gap, gap];
 
 //csatlakozoproba();
-translate([0,-1-gombolyites-ww-dwtw,-00])kezdoelem();
-//vegelem();
-translate([0,0,-00])kozepelem();
+//translate([0,-0-ww-dwtw,-5])
+//kezdoelem();
+//kozepelem();
+//translate([0,0,-00])vegelem();
 module csatlakozoproba(){
     translate([17.5,0,-2.5])csatlakozo(csm);
     difference(){
@@ -46,9 +47,9 @@ module vegelem(){ // makeme
 
 module elem(cs1=true, cs2=true){
     csm=[15,40,50,8,5,5];
+    ew = cs1 ? 0:ww/2;
+    w = cs2 ? 0:ww/2;
     difference(){
-        ew = cs1 ? 0:ww/2;
-        w = cs2 ? 0:ww/2;
         translate([gombolyites,gombolyites,gombolyites])
             minkowski(){
                 difference(){
@@ -76,9 +77,9 @@ module elem(cs1=true, cs2=true){
         }
     }
     if (cs2){
-        translate([37.5,ww+dwtw+csm[0]/2,csm[2]/2])
+        translate([37.5,ww+dwtw+csm[0]/2+w+ew,csm[2]/2])
             rotate([0,0,90])csatlakozo(csm);
-        translate([112.5,ww+dwtw+csm[0]/2,csm[2]/2])
+        translate([112.5,ww+dwtw+csm[0]/2+w+ew,csm[2]/2])
             rotate([0,0,90])csatlakozo(csm);
     }
 }
