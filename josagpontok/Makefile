@@ -1,5 +1,5 @@
-# match "module foobar() { //makeme"
-TARGETS=$(shell sed '/module [a-zA-Z0-9_-].*().*makeme/!d;s/module //;s/().*/.stl/' duplos_cuboro.scad)
+# match "module foobar() { // makeme"
+TARGETS=$(shell sed '/module [a-zA-Z0-9_-].*().*makeme/!d;s/module //;s/().*/.stl/' JosagPontok.scad)
 
 all: ${TARGETS}
 
@@ -11,7 +11,7 @@ all: ${TARGETS}
 include $(wildcard *.deps)
 
 %.scd:
-	echo -n 'use <duplos_cuboro.scad>\n$*();' > $@
+	echo -n 'use <JosagPontok.scad>\n$*();' > $@
 
 %.stl: %.scd
 	openscad -m make -o $@ -d $@.deps $<
