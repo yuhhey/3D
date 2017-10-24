@@ -2,18 +2,18 @@ use <../tracklib.scad>;
 use <../../atis_lib.scad>;
 //use <../../dotscad/pie.scad>
 
-//Vegles
+//Vegleges
 //jobbszetagazas();
 //balszetagazas();
 szetagazas();
 $fs=0.5;
 $fa=1;
-module jobbszetagazas(){ //make me
+module jobbszetagazas_1mm(){ //make me
     inset_first_layer(inset_height=0.31,inset_width=0.4, render=true)
         mirror([90,0,0])
             balszetagazas();
 }
-module balszetagazas(){ //make me
+module balszetagazas_1mm(){ //make me
     inset_first_layer(inset_height=0.31,inset_width=0.4, render=true){
         difference(){
             union(){
@@ -65,8 +65,8 @@ module balszetagazas(){ //make me
 }
 
 
-module szetagazas(){ //make me
-    inset_first_layer(inset_height=0.31,inset_width=0.2, render=true){
+module szetagazas_1mm(){ //make me
+    inset_first_layer(inset_height=0.31,inset_width=0.4, render=true){
         difference(){
             union(){
                 hullam(90,1);
