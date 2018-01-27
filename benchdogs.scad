@@ -10,7 +10,7 @@ translate([50,0,0])hengeres_elem(12);
 //derekszogu_3lyukas_benchdog();
 
 module hengeres_elem(r_kulso=9.5, r_rugo=2){
-    cube([40,40,9], center=true);
+    translate([10-r_kulso/2,0,0])cube([20+r_kulso,40,9], center=true);
     translate([0,0,4.5])difference(){
         cylinder(r=r_kulso,h=30, $fn=r_kulso*12);
         translate([0,0,10])cylinder(r=r_rugo,h=250, $fn=r_rugo*12);
