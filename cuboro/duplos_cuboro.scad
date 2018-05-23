@@ -1,23 +1,24 @@
+use <../atis_lib.scad>
 include <../duplo/duplo-block-lib.scad>
 include <../../dotscad/pie.scad>
-//$fs=1;
-//$fa=1;
-cube_side=3*duploRaster-gapBetweenBricks;
 
+cube_side=3*duploRaster-gapBetweenBricks;
 r_run=9;
 w_run = 2*r_run;
-quality=18;
+quality=100;
+
+scaling_factor = 2;
 
 /*place() cuboro_No2();
 place(x=1, r=90) cuboro_NoD15();
-place(z=1, r=90) cuboro_No3();
+place(z=top
+oro_No3();
 place(x=1, y=-1, r=-90) cuboro_NoD8();*/
-//cuboro_No22();
-cuboro();
+//cuboro_No41();
 
-//golyok(1); 
 
-module golyok(n){ // make me
+
+module golyok(n){ // makeme
     for(x = [-n:n]){
         for(y = [-2*n:2*n]){
             translate([x*(2*w_run),y*w_run,0]) golyo();
@@ -66,9 +67,19 @@ module place(x=0, y=0, z, r=0){
 
 module cuboro_No(){
     cuboro(n="", n_rot=0, is_n_side=false){
+        
     }
 
 }
+
+module cuboro_NoMa(){
+    cuboro(n="Ma", n_rot=[0, 90, 180, 270], is_n_side=true,
+           bf=false, jf=false, ba=false, ja=false, kell_also=false){
+        Kozepen() translate([0,0,-22])#cylinder(r2=w_run+4.5, r1=w_run+3.5, h=51, $fn=12*(w_run+5));
+    }
+
+}
+
 
 module cuboro_No1(){ // makeme
     cuboro(n="1", n_rot=[0, 90, 180, 270], is_n_side=true){
@@ -522,7 +533,7 @@ module cuboro_No41(){ // makeme
 
 module cuboro_No42(){ // makeme
     cuboro(n="42", n_rot=[0, 90, 180, 270], is_n_side=true, ba=false, bf=false, ja=false, jf=false){
-        Felul() translate([0,0,-10])cylinder(r2=w_run+5, r1=r_run, h=11);
+        Felul() translate([0,0,-10])cylinder(r2=w_run+5, r1=r_run, h=11, $fn=12*(w_run+5));
         translate([0,0, 11]) Alul() Felfele() jobbKanyar();
     }
 }
@@ -660,6 +671,15 @@ module cuboro_No71(){ // makeme
     }
 }
 
+module cuboro_No92(){ // makeme
+    cuboro(n="92", n_rot=[270, 90]){
+        Felul() alagut();
+        translate([0,0,15]){
+            Alul() Felfele() #jobbKanyar();
+            Alul() Felfele() #balKanyar();
+        }
+    }
+}
 module cuboro_No93(){ // makeme
     cuboro(n="93", n_rot=[0,180]){
         Felul(){
@@ -777,37 +797,40 @@ module cuboro(n,
               n_rot = [0], 
               is_n_side=false,
               z_pos=0,
-              bf=true, jf=true, ba=true, ja=true){
-    k=48/2-8;
-    //t=40-1.5*gapBetweenBricks;
-
+              bf=true, jf=true, ba=true, ja=true,
+              kell_also=true){
+    sf = scaling_factor;
+    k=sf*48/2-8;
     bks = [[k,k,0],
            [k,-k,0],
            [-k,k,0],
            [-k,-k,0]];
-    
-    difference(){
-        minkowski(){
-            gombolyites=2;
-            cube([cube_side-2*gombolyites-gapBetweenBricks,cube_side-2*gombolyites-gapBetweenBricks,48-2*gombolyites-gapBetweenBricks], center=true);
-            sphere(r=gombolyites, $fn=quality);
-        }
-        children();            
-        translate([0,0,-24.05+duploHeight/2]) also_csatlakozo();
-        for(a=n_rot){
-            rotate(a) 
-                if (is_n_side){
-                   translate([0, -cube_side/2+2, z_pos])rotate([90,0,0]) linear_extrude(height=2)text(text=n, font="Courier Bold", size=8, halign="center");
-                }
-                else{   
-                   translate([0,12,cube_side/2-2])
-                       linear_extrude(height=2.2) 
-                           text(text=n, font="Courier Bold", size=8, halign="center");
-                }
-        }
-    }       
-
-    translate([0,0,23.5]){
+    gombolyites=1;
+    translate([0,0,k+8-gombolyites/2])
+        difference(){
+            minkowski(){
+                inner_cube_side = sf*cube_side-2*gombolyites-gapBetweenBricks;
+                color([1,0,0])cube(inner_cube_side, center=true);
+                sphere(r=gombolyites, $fn=gombolyites*24); // 0.3mm resolution due to being at the bottom too.
+            }
+            scale(sf) children();            
+            if (kell_also) translate([0,0,-23.8*sf+duploHeight/2]) also_csatlakozo();
+            for(a=n_rot){
+                rotate(a) 
+                    if (is_n_side){
+                       translate([0, -cube_side/2*sf+2, sf*z_pos])
+                           rotate([90,0,0]) 
+                               linear_extrude(height=2)
+                                   scale(sf)text(text=n, font="Courier Bold", size=8, halign="center");
+                    }
+                    else{   
+                       translate([0,sf*12,(cube_side/2)*sf-2])
+                           linear_extrude(height=2.2) 
+                               scale(sf)text(text=n, font="Courier Bold", size=8, halign="center");
+                    }
+            }
+        }       
+    translate([0,0,(2*(k+8)-1)]){
         if (bf) translate([-k, k, 0]) csatlakozo();
         if (jf) translate([k, k, 0]) csatlakozo();
         if (ba) translate([-k, -k, 0]) csatlakozo();
@@ -843,7 +866,7 @@ module Lefele(){
 }
 
 module vegzodes(){
-    translate([cube_side/2,0,0])scale([4,1,1])sphere(r=r_run, center=true, $fn=quality);
+    translate([cube_side/2,0,0])scale([4,1,1])sphere(r=r_run, center=true, $fn=r_run*12);
 }
 
 module nagyKivagas(){
@@ -853,11 +876,12 @@ module nagyKivagas(){
                         rotate([90,0,0])
                             rotate_extrude($fn=quality)
                                 translate([cube_side/2, 0, 0])
-                                    circle(r = r_run,$fn=quality);
+                                    circle(r = r_run,$fn=r_run*12);
 }
     
 function fely(n=1) = r_run+n*(cube_side-2*w_run)/3/2;
 
+// Curve out blocks
 module duplaAlagut(){
     translate([0,fely()])alagut();
     translate([0,-fely()])alagut();    
@@ -865,7 +889,7 @@ module duplaAlagut(){
 
 module alagut(){
         rotate([0,90,0])
-            cylinder(r=r_run, h=60, center=true,$fn=quality);
+            cylinder(r=r_run, h=60, center=true,$fn=r_run*12);
 }
 
 module lejtosAlagut(){
@@ -876,42 +900,48 @@ module kereszt(){
     alagut();
     translate([0, cube_side/2+1,0])
         rotate([90,0,0])
-            cylinder(r=r_run, h=50, $fn=quality);
+            cylinder(r=r_run, h=50, $fn=r_run*12);
 }
 
 module jobbKanyar(){
-     translate([-cube_side/2,-cube_side/2,0])rotate_extrude($fn=quality){
-        translate([cube_side/2,0,0]) circle(r=r_run, $fn=quality);
-     }
+     translate([-cube_side/2,-cube_side/2,0])
+         intersection(){
+             rotate_extrude($fn=quality) translate([cube_side/2,0,0]) circle(r=r_run, $fn=r_run*12);
+             translate([0,0,-cube_side/2])cube(cube_side, center=false);
+         }
+     translate([-cube_side/2-20,0,0])rotate([0,90,0])cylinder(r=r_run,h=20, $fn=r_run*12);
 }
 
 module balKanyar(){
-    translate([0,cube_side,0]) jobbKanyar();
+    mirror([0,1,0]) jobbKanyar();
 }
 
 module FerdeAlagutBalra(){
     mirror([1,0,0]) FerdeAlagutJobbra();
 }
 
+/*module FerdeAlagutJobbra(){
+    import("FerdeAlagutJobbra.stl");
+}*/
+
 module FerdeAlagutJobbra(){
-    s=100/quality;
+    s=220/quality;
     translate([cube_side/2,-cube_side/2,cube_side/2])
         for ( z = [-20:s:200]) {
             rotate(z*0.5)
-            translate([0,cube_side/2,-z/179*duploHeight*1.3])
-                rotate([0,73.5,0])cylinder(r=r_run, h=30/quality, $fn=quality);
+                translate([0,cube_side/2,-z/179*duploHeight*.8])
+                    rotate([0,79,0])rotate([0,0,z*1.41])cylinder(r=r_run, h=70/quality, $fn=r_run*12);
         }
 }
 
-
 module csatlakozo(){
-    duplo(1,1,0,true,true);
+    scale([0.95, .95, 1])duplo(1,1,0,true,true);
 }
 
 module also_csatlakozo(){
     difference(){
-        cube([47,47,9.6],center=true);
-        duplo(3,3,1,false,true);
+        scale([scaling_factor,scaling_factor, 1])cube([47,47,9.6],center=true);
+        translate([0,0,1.4])scale([1,1,1.3])duplo(3*scaling_factor,3*scaling_factor,1,false,true);
     }
 }
 
@@ -926,7 +956,7 @@ module iv_180fokos(r){
 module iv(r, angle){
     intersection(){
         rotate_extrude($fn=quality)
-            translate([r,0,0]) circle(r=r_run, $fn=quality);
+            translate([r,0,0]) circle(r=r_run, $fn=r_run*12);
         translate([0,0,-r_run])pie(r+r_run+1, angle, height=2*r_run);
     }
 }
@@ -957,5 +987,3 @@ module alternativeKanyar(){
     rotate([0,90,0])cylinder(r=r_run, cube_side/2);
     sphere(r=r_run);
 }
-
-
