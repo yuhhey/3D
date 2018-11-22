@@ -2,19 +2,19 @@ use <dotscad/pie.scad>;
 use <brio/tracklib.scad>;
 use <atis_lib.scad>;
 
-/*Herz 1 kilos spool
+//*Herz 1 kilos spool
 inner = 52.5; //線圈內徑
 outer = 100; //線圈外徑
-thick = 1.2; //壁厚
+thick = 1.5; //壁厚
 hight = 58; //高度
-*/
+//*/
 
-//Colorfabb 0.75 kilos spool
+/*Colorfabb 0.75 kilos spool
 inner = 53;
 outer = 100;
 thick = 3.9;
 hight = 46; 
-
+*/
 
 //numbers = 4; //個數
 central_angle = 120;

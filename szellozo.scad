@@ -40,7 +40,7 @@ module szellozo(){
         }
     }
     
-    translate([0,0,2])elzaro_korong();
+    translate([0,0,0])elzaro_korong();
 }
 
 module elzaro_korong(){

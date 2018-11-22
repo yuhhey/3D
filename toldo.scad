@@ -21,6 +21,10 @@ R4=r4/2+gombolyites+hezag;
 //Bosch();
 //translate([0,0,25])gyuru(19, 16, 20,2,$fn=104);
 //translate([0,0,45]) Kreg();
+//BEH600_GAF25();
+//BoschScheppachToldo();
+FelsomaroElszivoCsonk();
+
 module Kreg(){
     R1_kreg= 14.5;
     R2_kreg= 16;
@@ -31,7 +35,7 @@ module Bosch(){
     translate([0,0,0])gyuru(20.5, 19, 25,2, $fn=120);
 }
 
-module KregBosch(){
+module KregBosch(){ // make me
     //Kreg csonk belső átmérője: 30mm.
     //translate([0,0,gombolyites])minkowski()
     {
@@ -46,7 +50,7 @@ module KregBosch(){
     }
 }
 
-module MakitaBosch(){
+module MakitaBosch(){ // make me
     translate([0,0,gombolyites])minkowski(){
         union(){
             translate([0,0,20])gyuru(R2, R1, 45,W);
@@ -91,12 +95,42 @@ module BEH600_GAF25(){
 //97-99 külső átmerő
 //57-58 belső átmérő
 
-//BoschScheppachToldo();
-
 module BoschScheppachToldo(){  // make me
     rotate([180,0,0 ]){
-        translate([0,0,50])gyuru(99/2, 97/2, 40, 4);
+        translate([0,0,50])Scheppach();
         translate([0,0,30])gyuru((58+2*4)/2, 99/2, 20,4);
         gyuru((59+2*4)/2, (58+2*4)/2, 30, 4);
+    }
+}
+
+module Scheppach(){
+    gyuru(99/2, 97/2, 40, 2);
+}
+
+module FelsomaroElszivoCsonk(){
+    translate([0,0,4])Scheppach();
+    w = 158;
+    h = 146; // teglalap esetén mindig h legyen a nagyobb, hogy a lyukakat megfelelően pozícionálja
+    wl = 15; //oldalfal szélessége
+    difference(){
+        minkowski(){
+            translate([0,0,1]) cube([w-20, h-20,2], center=true);
+            cylinder(r=10, h=2);
+        }
+        translate([0,0,-1])cylinder(r=99/2-2, h=5, $fn=12*(99/2-2));
+        xh = w/2;
+        yh = h/2;
+        d = wl/2;
+        cornerholes = [[xh-d-5, yh-d],
+                       [-xh+d+5, yh-d],
+                       [-xh+d+5, -yh+d],
+                       [xh-d-5, -yh+d]];
+       for ( coords = cornerholes){
+           echo(coords[0], coords[1]);
+          translate([coords[0], coords[1],-1]) #cylinder(r=2, h=10, $fn=12*2);
+       }
+       sz = 50;
+       translate([w/2, -h/2-10, 0])rotate([0,-sz,0])cube([10,h+20,10]);
+       translate([-w/2, -h/2-10, 0])rotate([0,-sz,0])cube([10,h+20,10]);
     }
 }
