@@ -1,7 +1,7 @@
 fal=5;
-d_kulso=100;
+d_kulso=120;
 $fn=d_kulso*3.14;
-h = 50;
+h = 30;
 r_perem=1;
 
 r_kerekites=3;

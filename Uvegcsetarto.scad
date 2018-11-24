@@ -10,7 +10,7 @@ r_kicsi = 6.5;
 r_kozepes = 17.5;
 r_nagy = 27;
 
-Rek = [r_kicsi, r_kicsi, r_kicsi, r_kicsi, r_kozepes, r_kozepes, r_kozepes, r_kozepes, r_nagy, r_nagy];
+Rek = [r_kicsi, r_kicsi, r_kozepes, r_kozepes, r_kozepes, r_nagy, r_nagy];
 yok = [koz,
        2*koz+2*Rek[0],
        3*koz+2*(Rek[0]+Rek[1]),
@@ -83,7 +83,7 @@ module uvegtarto(){
                 }
             }
         }
-        sphere(r=gombolyites, $fn=40);
+        sphere(r=gombolyites, $fn=24);
     }
 }
         
