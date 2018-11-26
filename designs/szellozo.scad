@@ -2,18 +2,21 @@ use <atis_lib.scad>;
 
 w = 176; // előlap élhossza
 rl = 10; //lap sarkának gömbölyítése
-ww = 3; // anyagvastagság
+ww = 2.9; // anyagvastagság
 h_kurto=50;
 
 hezag=1;
-r_kurto_cso_kulso1 = w/2-13;
+r_kurto_cso_kulso1 = 74;
+//r_kurto_cso_kulso1 = 72 // Mosókonyha, Ez kicsi.
+//r_kurto_cso_kulso1 = 74 // nappali
+//r_kurto_cso_kulso1 = 65 //Szülői háló
 r_kurto_cso_kulso2 = r_kurto_cso_kulso1 - ww + 1; // maradjon értékelhető anyag a végére
 r_kurto_cso_belso = r_kurto_cso_kulso1 - ww;
 
 echo(r_kurto_cso_kulso1,r_kurto_cso_kulso2, r_kurto_cso_belso);
 
-translate([0,0,0])
-        szellozo();
+inset_first_layer(inset_width=0.5, render=true)
+       translate([0,0,1.5]) szellozo();
 
     //translate([0,r_kurto_cso_kulso1+50.5,0])cube([100,100,100], center=true);
 
@@ -51,9 +54,9 @@ module elzaro_korong(){
                 cylinder(r=r_kurto_cso_belso-1.5, h=2, center=true, $fn=12*(r_kurto_cso_belso-0.5));
                 sphere(r=1, $fn=12);
             }
-            translate([0,0,0.5])rotate([90,0,0])cylinder(r=1.5, h = 2*r_kurto_cso_belso, center=true, $fn=12*1.5);
-            translate([0,r_kurto_cso_belso,0]) rotate([90,0,0])atfurt_felgomb(5.5,1);
-            translate([0,-r_kurto_cso_belso,0]) rotate([-90,0,0])atfurt_felgomb(5,1);
+            translate([0,0,0])rotate([90,0,0])cylinder(r=1, h = 2*r_kurto_cso_belso, center=true, $fn=12*1);
+            translate([0,r_kurto_cso_belso,0]) rotate([90,0,0])felgomb(5.8);
+            translate([0,-r_kurto_cso_belso,0]) rotate([-90,0,0])felgomb(5.8);
         }
     }
 }
@@ -64,7 +67,7 @@ module kurtobe(){
         translate([0,0,-5])cylinder(r=r_kurto_cso_belso, h=h_kurto+10, $fn=72*6);
         translate([0,0,2])rotate([90,0,0])cylinder(r=1, h = 2*r_kurto_cso_kulso1+2, center=true, $fn=12);
         for(a = [0:60:360]){
-            translate([0,0, h_kurto/2+5])rotate(a)cube([w, 40,h_kurto], center=true);
+            translate([0,0, h_kurto/2+10])rotate(a)cube([w, 40,h_kurto], center=true);
         }
     }
     translate([0,r_kurto_cso_belso,2]) rotate([90,0,0])atfurt_felgomb(5,1);
@@ -98,3 +101,4 @@ module elolap(){
     }
 }
 
+   

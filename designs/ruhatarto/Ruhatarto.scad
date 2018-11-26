@@ -1,3 +1,5 @@
+use <atis_lib.scad>;
+
 $fn = 5;
 ww = 6; // elválasztó falak vastagsága
 dwtw = 85; // falak közti távolság
@@ -9,7 +11,7 @@ csm=[15,40,50,8,5,5];
 gap=0.3;
 gap_v = [gap, 2*gap, gap, gap, 2*gap, gap];
 
-//csatlakozoproba();
+csatlakozoproba();
 //translate([0,-0-ww-dwtw,-5])
 //kezdoelem();
 //kozepelem();
@@ -18,7 +20,8 @@ module csatlakozoproba(){
     translate([17.5,0,-2.5])csatlakozo(csm);
     difference(){
         cube([20,45,55], center=true);
-        translate([-2.3,0,-2.75])csatlakozo(csm + gap_v);
+        //2.35=10-(15+0.3)/2
+        translate([-2.35,0,-2.75])csatlakozo(csm + gap_v);
     }
 }
 
@@ -84,29 +87,3 @@ module elem(cs1=true, cs2=true){
     }
 }
 
-module csatlakozo(csm){
-    cw = csm[0];
-    sz = csm[1];
-    h = csm[2];
-    ch = csm[3];
-    ny = csm[4];
-    R=csm[5];
-    translate([-cw/2, -sz/2, -h/2]){
-        cube([cw,sz,ch]);
-        translate([0,sz,ch])
-            rotate([90,0,0])
-                linear_extrude(height=sz)polygon([[0,0], [cw, 0], [0,cw+1], [0,0]]);
-        translate([0,(sz-ny)/2,0])
-        intersection()
-        {
-            //R=(sz/4+1)/2;
-            translate([0,R+ny/2,0])
-                rotate([90,0,0])
-                    linear_extrude(height=2*R)polygon([[0,0], [cw, 0], [cw, h-cw-1], [0,h], [0,0]]);
-            union(){
-                cube([ny, ny,h]);
-                translate([cw-R-0.7,ny/2,0]) cylinder(r=R, h=h,$fn=80);
-            }
-        }
-    }
-}

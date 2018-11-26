@@ -1,4 +1,4 @@
-use <../csatlakozo_lib.scad>;
+use <atis_lib.scad>;
 
 //doboz(20,30 ,22);//, apa=false, anya=false);
 

@@ -3,6 +3,7 @@ use <../brio/sinek/tracklib.scad>
 h=wood_height();
 
 //kozepelem();
+//alja();
 module kozepelem(){ //makeme
     felidom();
     rotate(180) felidom();
