@@ -15,9 +15,10 @@ r_kurto_cso_belso = r_kurto_cso_kulso1 - ww;
 
 echo(r_kurto_cso_kulso1,r_kurto_cso_kulso2, r_kurto_cso_belso);
 
-inset_first_layer(inset_width=0.5, render=true)
-       translate([0,0,1.5]) szellozo();
+//inset_first_layer(inset_width=0.5, render=true)
+//       translate([0,0,1.5]) szellozo();
 
+keringeto_elolap();
     //translate([0,r_kurto_cso_kulso1+50.5,0])cube([100,100,100], center=true);
 
 
@@ -102,3 +103,15 @@ module elolap(){
 }
 
    
+
+module keringeto_elolap(){
+    dx=35;
+    difference(){
+        elzaro_korong();
+        
+        translate([dx, 0,0])cylinder(r=dx-10, h=20, center=true, $fn=12*(dx-10));
+        translate([-dx, 0,0])cylinder(r=dx-10, h=20, center=true, $fn=12*(dx-10));
+    }
+    translate([dx, 0,0]) gyuru(dx-10+3,dx-10+3, 30,3);
+    translate([-dx, 0,0]) gyuru(dx-10+3,dx-10+3, 30,3);
+}
