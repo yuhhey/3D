@@ -34,19 +34,17 @@ module inset_first_layer(inset_height=0.31,inset_width=0.2, render=false)
     }
 } 
 
-module deszka(m, sz, v, cimke){
+module deszka(m, sz, v, vastagsag, cimke){
     cube([m,sz,v], center=true);
     if (m == vastagsag){
         t = sz * v;
         echo(cimke, m , sz, v, t/1000/1000);
-    }
-    if (sz == vastagsag){
-        t = m*v;
-        echo(cimke, m , sz, v, t/1000/1000);
-    }
-    if (v == vastagsag){
-        t = m*sz;
-        echo(cimke, m , sz, v, t/1000/1000);
+    } else if (sz == vastagsag){
+            t = m*v;
+            echo(cimke, m , sz, v, t/1000/1000);
+    } else if (v == vastagsag){
+            t = m*sz;
+            echo(cimke, m , sz, v, t/1000/1000);
     }
     //echo(cimke, m , sz, v, t);
 }

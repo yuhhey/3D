@@ -9,9 +9,31 @@ th=25;
 
 //meretek(stl, tw,th, 1);
 
-uvegmodel();
+//uvegmodel();
 
 //allvany(stl,tw,th);
+
+//cos(30)*tw+stl
+
+module hatszog(){
+    hatszog_oldalak = [[0,0, 0],
+                        [stl,0, th],
+                        [stl*(1+sin(30)),stl*cos(30), 2*th],
+                        [stl, 2*stl*cos(30),],
+                        [0,2*stl*cos(30),th],
+                        [-stl*sin(30),stl*cos(30),2*th]];
+    for(i = [0:5]){
+        translate([hatszog_oldalak[i][0],hatszog_oldalak[i][1],hatszog_oldalak[i][2]])rotate(i*60)translate([-tw*sqrt(3)/2,-tw/2,0])lec(1,stl, tw, th, 3,5);
+    }       
+
+    hatszog_atlok = [[-stl*sin(30), stl*cos(30)],
+                      [0,0],
+                      [stl, 0]];
+    for(i = [0,1,2]){
+        translate([hatszog_atlok[i][0], hatszog_atlok[i][1],i*th])rotate(i*60)translate([-tw*sqrt(3)/2, -tw/2, 0])
+        lec(2,stl, tw, th, 2,4);
+    }
+}
 
 module uvegmodel(){
     for (x=[-75-75/2:75:150]){
@@ -39,7 +61,7 @@ module allvany(stl, tw,th){
         translate([0,2*cos(30)*stl,l])lec(3, stl,tw,th,2,8);
 
         for (i =[0:2]){
-            translate([cos(30)*tw+i*stl, -sin(30)*tw,l+25])rotate([0,0,60]) lec(2,stl,tw,th,1,8);
+            translate([cos(30)*tw+i*stl, -sin(30)*tw,l+th])rotate([0,0,60]) lec(2,stl,tw,th,1,8);
         }
         translate([cos(30)*tw+3*stl, -sin(30)*tw,l+th])rotate([0,0,60]) lec(1,stl,tw,th,1,8);
 
@@ -82,7 +104,7 @@ module lec(ns, stl,tw,th, iv, d)
         difference(){
             cube([tl,tw,th]);
             for(x=[dx:stl:tl]){
-                translate([x,tw/2,-10])cylinder(r=d/2, h=th+10);
+                translate([x,tw/2,-10])cylinder(r=d/2, h=th+10, $fn=12*d/2);
             }
         }
     }
