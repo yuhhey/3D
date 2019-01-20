@@ -1,33 +1,49 @@
 $fn=100;
-difference(){
-    linear_extrude(height=210)
-        minkowski()
-        {
-            difference(){
-                square([62,56], center=true);
-                union (){
-                    translate([22,28,0])circle(r=8, center=true);
-                    translate([-7,24,0])square([57,8],center=true);
-                    translate([22,-18,0])circle(r=8, center=true);
-                    translate([22,10,0])circle(r=8, center=true);
-                    translate([22,-5,0])square([16,28],center=true);
-                    translate([-11,-8,0])square([48,52],center=true);
-                    translate([13,0,0])square([18,36],center=true);
-                    translate([23,-19,0])difference(){
-                        circle(r=14,center=true);
-                        circle(r=10,center=true);
-                        translate([0,-20,0])square([40,40]);
-                    }            
+
+
+tarto();
+
+//csavar_lyuk(r=1.5, v=10);
+
+module tarto(){
+    tarto_sz = 300;
+    difference(){
+        linear_extrude(height=tarto_sz)
+            minkowski()
+            {
+                difference(){
+                    translate([0,-3,0])square([62,50], center=true);
+                    union (){
+                        //translate([22,28,0])circle(r=8, center=true);
+                        //translate([-7,24,0])square([57,8],center=true);
+                        translate([22,-18,0])circle(r=8, center=true);
+                        translate([22,10,0])circle(r=8, center=true);
+                        translate([22,-5,0])square([16,28],center=true);
+                        translate([-11,-8,0])square([48,52],center=true);
+                        translate([13,0,0])square([18,36],center=true);
+                        translate([23,-19,0])difference(){
+                            circle(r=14,center=true);
+                            circle(r=10,center=true);
+                            translate([0,-20,0])square([40,40]);
+                        }            
+                    }
+                }
+                union(){
+                    circle(r=1.5);
+                    translate([0,-1.5,0])square([1.5,1.5]);
                 }
             }
-            circle(r=1.5);
+        for (z = [tarto_sz/4, tarto_sz*3/4]){
+            translate([31.6,8,z])rotate([0,-90,0])csavar_lyuk(r=1.5, v=5);
         }
-    for (z = [105/2, 105*3/2]){
-        translate([29,8,z])rotate([0,90,0]) cylinder(r1=3, r2=1.5, h=2,center=true);
-        translate([31,8,z])rotate([0,90,0]) cylinder(r=1.5, h=3,center=true);
+        //translate([-30,22,2.5])rotate(-3) cube([58,15,205]);
+        for (z = [0:30:tarto_sz]){
+            translate([14.5,-20,z])cube([28,24,24],center=true);
+        }
     }
-    translate([-30,22,2.5])rotate(-3) cube([58,15,205]);
-    for (z = [0:30:210]){
-        translate([14.5,-20,z])cube([28,24,24],center=true);
-    }
+}
+
+module csavar_lyuk(r, v){
+    translate([0,0, (v-1.5)/2])cylinder(r2=r+1.5, r1=r, h=1.5);
+    cylinder(r=r, h=v-1.5,center=true);
 }
