@@ -1,25 +1,29 @@
+use <atis_lib.scad>
+
 ww=3.2;
 
 csavar_fej_vastagsag=3;
 
 
-//hp_tolto();
+macbook_pro();
 
 //lenovo_tolto();
 
-macbook_pro();
+//macbook_pro();
+
+//taviranyito_tarto();
 
 //mirror()macbook_pro();
 
-module macbook_pro(){
+module macbook_pro(){  // make me
     falitarto(130, 80, 28,0,0,0,0,false);
 }
 
-module hp_tolto(){
+module hp_tolto(){ // make me
     falitarto(128, 52, 32, 24, 31, 21,4, true);
 }
 
-module lenovo_tolto(){
+module lenovo_tolto(){ // make me
     falitarto(109, 47, 30, 18, 23, 12,6, true);
 }
 
@@ -64,3 +68,37 @@ module falitarto(belso_w=120,
 
 
 
+
+
+
+module taviranyito_tarto(){ // make me
+    ww=3;
+    gr=1;
+    sz = 55;
+    m = 25;
+    h = 70;
+
+    ksz=sz+2*ww-2*gr;
+    km=m+2*ww-2*gr;
+    kh=h+ww;
+
+    difference(){
+        minkowski()
+        {
+            difference(){
+                
+                cube([ksz, km, kh], center=true);
+                translate([0,-ww+2*gr,ww+35])cube([ksz,km,h],center=true);
+                translate([0,0,ww])cube([sz+2*gr,m+2*gr,h+2*gr],center=true);
+                translate([0,m/2,ww])rotate([90,0,0])cylinder(r=sz/2+gr,h=m+ww, $fn=12*sz/2);
+            }
+            sphere(r=gr, $fn=gr*12);
+        }
+        for(z = [-h/4,h/4]){
+            translate([0,km/2+gr,z])rotate([0,-90,90]){
+                kivagas(13,4,ww);
+                cylinder(r=4,h=ww, $fn=12*4);
+            }
+        }
+    }
+}
