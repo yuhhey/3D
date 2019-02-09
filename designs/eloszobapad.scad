@@ -23,13 +23,8 @@ pm=pad_melyseg;
 lec_no = ceil(pad_melyseg/2/lec_vastagsag);
 
 res_sz = (pad_melyseg - lec_no*lec_vastagsag)/(lec_no-1);
-echo(res_sz);
 
-
-
-//pad_lab();
-
-pad_robbantott_abra(true, rf=[1.1, 1, 1.4]);
+pad_robbantott_abra(true, rf=[1.2, 1, 1.8]);
 
 module pad_model(kozepso_lab=false){
     pad_robbantott_abra(kozepso_lab);
@@ -42,6 +37,8 @@ module pad_lab(){
             translate([0, y, (pad_magassag-av)/2])cube([av, lec_vastagsag,av], center=true);
         }
     }
+
+    
 }
 
 module pad_lec(){
@@ -50,6 +47,13 @@ module pad_lec(){
 
 module pad_robbantott_abra(kozepso_lab=false, rf=[1,1,1])
 {
+    echo("Padláb");
+    echo("Magasság:", pad_magassag);
+    echo("Vastagság:", lab_vastagsag);
+    echo("Mélység:", pm);
+    echo("Hézag szélesség:", res_sz);
+    echo("Hézeg mélység:", av);
+    echo("Kivágás szélesség:", lec_vastagsag);
     rfx=rf[0];
     rfy=rf[1];
     rfz=rf[2];
