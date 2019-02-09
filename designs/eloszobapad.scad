@@ -7,24 +7,25 @@ pad_melyseg = 360; // Ez csak egy maximum
 av=35;
 lab_vastagsag = 25;
 lec_vastagsag = 25  ;
+gap_equals_to_lec = false;
 
 //pad_model(true);
 
 /* Az ülőrészen lécből mindig 1-gyel több kell mint résből, ezért a pad mélységét mindig páratlan részre kell felosztani. A szélén éppen fedésben kell lennie a lécnek, ezért a pad_melyseg paramétert csak maximális értékként kezeljük. A pm lesz a kalkulált mélység, amivel a pad normálisan néz ki.
    A páratlanság miatt legrosszabb esetben a pad majdnem 2 lec_vastagsággal  lesz keskenyebb mint a pad_melyseg.
-
-pm = (round(pad_melyseg/lec_vastagsag/2)*2-1)*lec_vastagsag;
 */
+pm = gap_equals_to_lec ? (round(pad_melyseg/lec_vastagsag/2)*2-1)*lec_vastagsag: pad_melyseg;;
+
 
 /* Az ülőrész lécei közötti réseket lehet csökkenteni. Általában néhány mm elég. Ebben az esetben a pad mélysége a megadott méret lesz.
 */
+lec_no = ceil(pm/2/lec_vastagsag);
 
-pm=pad_melyseg;
-lec_no = ceil(pad_melyseg/2/lec_vastagsag);
+res_sz = (pm - lec_no*lec_vastagsag)/(lec_no-1);
 
-res_sz = (pad_melyseg - lec_no*lec_vastagsag)/(lec_no-1);
+//pad_robbantott_abra(true, rf=[1.2, 1, 1.8]);
 
-pad_robbantott_abra(true, rf=[1.2, 1, 1.8]);
+pad_model(true);
 
 module pad_model(kozepso_lab=false){
     pad_robbantott_abra(kozepso_lab);
