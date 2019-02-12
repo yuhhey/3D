@@ -4,8 +4,9 @@ ww=3.2;
 
 csavar_fej_vastagsag=3;
 
+lenovo_t480();
 
-macbook_pro();
+//macbook_pro();
 
 //lenovo_tolto();
 
@@ -13,7 +14,13 @@ macbook_pro();
 
 //taviranyito_tarto();
 
+//inhalator_tarto();
+
 //mirror()macbook_pro();
+
+module lenovo_t480(){  // make me
+    falitarto(130, 80, 26,0,0,0,0,false);
+}
 
 module macbook_pro(){  // make me
     falitarto(130, 80, 28,0,0,0,0,false);
@@ -66,21 +73,20 @@ module falitarto(belso_w=120,
     }
 }
 
-
-
-
-
-
 module taviranyito_tarto(){ // make me
-    ww=3;
+    /* ww=3;
     gr=1;
     sz = 55;
     m = 25;
     h = 70;
+    */
+    dobozos_tarto(3,1,55,25,70);
+}
 
+module dobozos_tarto(ww, gr, sz, m, h){
     ksz=sz+2*ww-2*gr;
     km=m+2*ww-2*gr;
-    kh=h+ww;
+    kh=h+ww-2*gr;
 
     difference(){
         minkowski()
@@ -88,9 +94,9 @@ module taviranyito_tarto(){ // make me
             difference(){
                 
                 cube([ksz, km, kh], center=true);
-                translate([0,-ww+2*gr,ww+35])cube([ksz,km,h],center=true);
-                translate([0,0,ww])cube([sz+2*gr,m+2*gr,h+2*gr],center=true);
-                translate([0,m/2,ww])rotate([90,0,0])cylinder(r=sz/2+gr,h=m+ww, $fn=12*sz/2);
+                translate([0,-ww+2*gr,h/5+ww+h/2])cube([ksz,km,h],center=true);
+                translate([0,0,ww-2*gr])cube([sz+2*gr,m+2*gr,h+gr],center=true);
+                translate([0,m/2,h/5+ww+abs(sz+gr-h)/2])rotate([90,0,0])cylinder(r=sz/2+gr,h=m+ww, $fn=12*sz/2);
             }
             sphere(r=gr, $fn=gr*12);
         }
@@ -101,4 +107,10 @@ module taviranyito_tarto(){ // make me
             }
         }
     }
+}
+
+module inhalator_tarto(){ // make me
+    // belso méret: 77x42mm
+    
+    dobozos_tarto(3,1,77,43.5,70);
 }
