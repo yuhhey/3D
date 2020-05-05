@@ -1,7 +1,6 @@
-use <tracklib.scad>
-use <../dotscad/pie.scad>
+use <../sinek/tracklib.scad>
+use <../../../dotscad/pie.scad>
  
-
 //egyenes_ut();
 //road_barrage();
 
@@ -9,11 +8,10 @@ use <../dotscad/pie.scad>
 //keresztezodes();
 
 //negyedkor();
-//road_arcs_V2();
+road_arcs_V2(d=90, kivagas=[0.1, 45.2]);
+translate([204, 0, 0])rotate([0,0,90])road_arcs_V2(d=90, kivagas=[45.1, 90]);
 //iv(100,20,45,10);
 //sarok_kivagas();
-
-X_kozep();
 
 function road_width() = 100;
 
@@ -28,7 +26,6 @@ bevel_cube_side = sqrt(2);
 function wood_height(h=12)=h;
 function wood_well_height()=2;
 function dashed_line_height()=1;
-
 
 module X_kozep(){
     x=road_width()/2;
@@ -217,12 +214,10 @@ module bevel_square(){
 
 module iv(r, w, d, h){
     difference(){
-        pie(r+w/2, d, h);
-        translate([0,0,-0.5]) rotate([0,0,-0.5])pie(r-w/2, d+1, h+1);
+        pie(r+w/2, d, h, $fn=r*12);
+        translate([0,0,-0.5]) rotate([0,0,-0.5])pie(r-w/2, d+1, h+1, $fn=r*12);
     }
 }
-
-
 
 module iv_kivagas(h){
     translate([0,0,h])
@@ -231,7 +226,7 @@ module iv_kivagas(h){
         }
 }
 
-module road_arcs_V2(r=102, d=45){
+module road_arcs_V2(r=102, d=45, kivagas=[-1, -1]){
     difference(){
         iv(r, road_width(), d, wood_height());
         //translate([0,0,lane_height()])rotate([0,0,-0.1])
@@ -239,24 +234,29 @@ module road_arcs_V2(r=102, d=45){
             r_lane_in = r - (road_lane_barrage_width()+lane_width())/2;
             iv(r_lane_in, lane_width(), d+1, wood_height()-lane_height()+1);
             r_lane_out = r + (road_lane_barrage_width()+lane_width())/2;
-            iv(r_lane_out, lane_width(), 46, wood_height()-lane_height()+1);
+            iv(r_lane_out, lane_width(), d+1, wood_height()-lane_height()+1);
+            if (kivagas[0]>0)
+                rotate([0,0,kivagas[0]])iv(r_lane_out+8, lane_width()+4, kivagas[1] - kivagas[0], wood_height()-lane_height()+1);
         }
         iv_kivagas(lane_height()+dashed_line_height())
-            iv(r, road_lane_barrage_width()+1, 45.5, wood_height()-lane_height());
+            iv(r, road_lane_barrage_width()+1, d + .5, wood_height()-lane_height());
+        // Szaggatott vonal kivágása. Csak 45 fok többszöröseire működik jól
         iv_kivagas(lane_height())
-            rotate([0,0,11.25])
+            for(sz = [11.25:45:d-11.25-22.5]){
+                rotate([0,0,sz])
                 iv(r, road_lane_barrage_width()+1, 22.5, wood_height());
-        rotate([0,0,45])
+            }
+        rotate([0,0,d])
             translate([r-road_width()/4,0,0])
                 rotate([0,0,-90])
-                    wood_cutout(h=4);
+                    wood_cutout(h=4, $fn=80);
         translate([r+road_width()/4,0,0])
             rotate([0,0,90])
-                wood_cutout(h=4);
+                wood_cutout(h=4, $fn=80);
         
         // Bevels
         translate([0,0,wood_height()-1])
-            rotate_extrude(){
+            rotate_extrude($fn=r*12){
                 translate([r+road_width()/2,0,0])
                     bevel_square(); 
                 translate([r+road_width()/2-road_edge_width(),0,0])
@@ -266,28 +266,30 @@ module road_arcs_V2(r=102, d=45){
                 translate([r-road_width()/2+road_edge_width(),0,0])
                     bevel_square();     
         }
-       	translate([0,0,lane_height()]) rotate_extrude()
+       	translate([0,0,lane_height()]) rotate_extrude($fn=r*12)
         {
             translate([r+road_lane_barrage_width()/2,0,0])
                 bevel_square();
             translate([r-road_lane_barrage_width()/2,0,0])
                 bevel_square();
         }
+        /* Nem csinált semmit, az út felett lebegnek az elemet.
         for(d = [11.25, 45-11.25]){
     	    rotate([0,0,d])
                 translate([102,0,wood_height()])
-                    rotate([0,0,90])bevel_cube(30);
-        }
+                    #rotate([0,0,90])bevel_cube(30);
+        }*/
         //Bevels end
     }
     translate([r-road_width()/4,0,0])
         rotate([0,0,-90])
-            wood_plug(h=4);
-    rotate([0,0,45])
+            wood_plug(h=4, $fn=80);
+    rotate([0,0,d])
         translate([r+road_width()/4,0,0])
             rotate([0,0,90])
-                wood_plug(h=4);
+                wood_plug(h=4, $fn=80);
 }
+
 module road_arcs(r = 102){ // makeme
     r_out = r + road_width()/2;
     r_in = r - road_width()/2;
