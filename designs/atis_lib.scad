@@ -1,7 +1,7 @@
 module gyuru(r1, r2,h, w, center=false){
     difference(){
         cylinder(r1=r1,r2=r2,h, center=center, $fn=12*r1);
-        cylinder(r1=r1-w, r2=r2-w,h, center=center, $fn=12*(r1-w));
+        translate([0,0,-0.1])cylinder(r1=r1-w, r2=r2-w,h+0.2, center=center, $fn=12*(r1-w)); // trükközés: már preview-ban is normálisan jelenjen meg a gyűrű
     }
 }
 
@@ -46,7 +46,7 @@ module deszka(m, sz, v, vastagsag, cimke){
             t = m*sz;
             echo(cimke, m , sz, v, t/1000/1000);
     }
-    //echo(cimke, m , sz, v, t);
+    echo(cimke, m , sz, v, t);
 }
 
 
@@ -74,7 +74,7 @@ module csatlakozo(csm){
                 rotate([90,0,0])
                     linear_extrude(height=2*R)polygon([[0,0], [cw, 0], [cw, h-cw-1], [0,h], [0,0]]);
             union(){
-                cube([ny, ny,h]);
+                #cube([cw-R,ny, h]);
                 translate([cw-R-0.5,ny/2,0]) cylinder(r=R, h=h,$fn=80);
             }
         }
@@ -104,5 +104,16 @@ module gombolyitett_csatlakozo(csm){
                 translate([cw-R-0.5,ny/2,0]) cylinder(r=R, h=h,$fn=80);
             }
         }
+    }
+}
+
+module kivagas(l, d, w){
+    hull(){
+        cylinder(r=d/2,h = w-2, $fn=12*d/2);
+        translate([l-d,0,0])cylinder(r=d/2, h=w-2, $fn=12*d/2);
+    }
+    translate([0,0,w-2])hull(){
+        cylinder(r1=d/2, r2=d/2+2,h = 2, $fn=12*d/2);
+        translate([l-d,0,0])cylinder(r1=d/2, r2=d/2+2, h=2, $fn=12*d/2);
     }
 }
