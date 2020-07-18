@@ -1,5 +1,5 @@
 use <atis_lib.scad>
-s = 4;
+s = 3;
 o = 4;
 //d = 55; // aldis smoothies üveghez
 //tures = [0.2, 0.3, 0.4, 0.5]; // 0.5-tel nyomtattam az aldi smoothies üveghez
@@ -44,13 +44,15 @@ module uvegcsetarto(){
                         translate([0,0,5+19])cylinder(r=nagy_r, h= 80, $fn=12*43/2);
                     }                    
                 }
+                saroktol = 8;
+                furat_x = i == 0 ? saroktol: (i == s ? sz-saroktol: i*d+keret);
+                furat_y = f == 0 ? saroktol: (f == o ? m-saroktol: f*d+keret);
+    //          echo(furat_x, furat_y);
                 if (!(i%2) && !(f%2)){
-                    saroktol = 8;
-                    furat_x = i == 0 ? saroktol: (i == s ? sz-saroktol: i*d+keret);
-                    furat_y = f == 0 ? saroktol: (f == o ? m-saroktol: f*d+keret);
-    //                echo(furat_x, furat_y);
                     translate([furat_x, furat_y, 30.1]) mirror([0,0,1])screw_hole();
                 }
+		if (((i==0) && (f==o)) || ((i==s) && (f==0)) || ((i==s) && (f==o)))
+                    translate([furat_x, furat_y, 30.1]) mirror([0,0,1])screw_hole();
             }
     }
 }
