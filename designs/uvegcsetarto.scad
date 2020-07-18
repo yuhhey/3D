@@ -1,13 +1,18 @@
 use <atis_lib.scad>
 s = 4;
-o = 8;
-d = 55;
+o = 4;
+//d = 55; // aldis smoothies üveghez
+//tures = [0.2, 0.3, 0.4, 0.5]; // 0.5-tel nyomtattam az aldi smoothies üveghez
+
+d = 100; // lidl 1.5L-es narancsleves üveghez
+tures = 0.1;
+echo(max(tures));
 proba = false;
 blackbelt = true;
 fuvoka_meret = 0.8;
-tures = [0.2, 0.3, 0.4, 0.5];
+
 keret = 3;
-echo(max(tures));
+
 
 kicsi_r = (proba) ? 20 : 20+max(tures);
 nagy_r = (proba) ? 43/2 : 43/2+max(tures);
@@ -39,11 +44,13 @@ module uvegcsetarto(){
                         translate([0,0,5+19])cylinder(r=nagy_r, h= 80, $fn=12*43/2);
                     }                    
                 }
-                saroktol = 8;
-                furat_x = i == 0 ? saroktol: (i == s ? sz-saroktol: i*d+keret);
-                furat_y = f == 0 ? saroktol: (f == o ? m-saroktol: f*d+keret);
-//                echo(furat_x, furat_y);
-                translate([furat_x, furat_y, 30.1]) mirror([0,0,1])screw_hole();
+                if (!(i%2) && !(f%2)){
+                    saroktol = 8;
+                    furat_x = i == 0 ? saroktol: (i == s ? sz-saroktol: i*d+keret);
+                    furat_y = f == 0 ? saroktol: (f == o ? m-saroktol: f*d+keret);
+    //                echo(furat_x, furat_y);
+                    translate([furat_x, furat_y, 30.1]) mirror([0,0,1])screw_hole();
+                }
             }
     }
 }
