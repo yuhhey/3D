@@ -51,14 +51,15 @@ module eNnedelo(){
     difference(){
         cube([l+4*r, w, 3],center = true);
         //cylinder(r=1, h= 5, center = true);
-        for (n = [2:10]){
+        for (n = [2,3,6,7,8,9]){
             translate([l*(1/2-1/n),0,0]){
                 cylinder(r=0.75, h= 5, center = true);
                 translate([0,7*pow(-1,n),-2])scale([0.5,1,1])linear_extrude(height=5)text(text=str("/",n), size=8, valign="center");
                 echo(20*pow(-1,n));
             }
-            translate([l/2*(1-n)/10,0,])cylinder(r=1, h= 5, center = true);
+            
         }
+        for(n = [2:10]) translate([l/2*(1-n)/10,0,])cylinder(r=1, h= 5, center = true);
     }
     translate([-(l/2 + r),0,-9])cylinder(r = r, h = 10);
     translate([(l/2 + r),0,-9])cylinder(r = r, h = 10);

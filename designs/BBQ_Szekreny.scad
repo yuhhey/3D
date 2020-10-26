@@ -12,7 +12,7 @@ difference(){
     }    
     translate([200+385,65,100])faszen();
     translate([200+385,373,100])faszen();
-    translate([200+365,160,430])rotate(90)translate([])hutotaska_helyenek();
+    translate([200+365,160,430])rotate(90)translate([0,0,0])hutotaska_helyenek();
     translate([200,75,100])cube([365,600,300]); // Alsó pakoló. Ide beférhet még a tárcsa, gázégő (ez akár lóghat is valahol, tárcsa, bogrács
     translate([1000-200,75,100])cube([550, 620,130]); // Vágódeszka helye.  TODO: fiókot neki, hogy ne piszkolódjon.
     #translate([1600-230,65,100])cube([200, 620, 650]); // Inkább fiókos irányban

@@ -74,7 +74,7 @@ module csatlakozo(csm){
                 rotate([90,0,0])
                     linear_extrude(height=2*R)polygon([[0,0], [cw, 0], [cw, h-cw-1], [0,h], [0,0]]);
             union(){
-                #cube([cw-R,ny, h]);
+                cube([cw-R,ny, h]);
                 translate([cw-R-0.5,ny/2,0]) cylinder(r=R, h=h,$fn=80);
             }
         }

@@ -10,7 +10,7 @@ if (r_kicsi > (r-ww)){
 }
 //kabelrendezo_elem();
 
-kicsi_kicsi_elem();
+nagy_nagy_elem();
 
 //ures_kup(10,20,30,5);
 
@@ -47,7 +47,7 @@ module kicsi_kicsi_elem(){ // make me
 }
 
 module elem_elem(R){
-    //inset_first_layer(inset_height=0.31,inset_width=0.2, render=true)
+    inset_first_layer(inset_height=0.31,inset_width=0.2, render=true)
     {
         rh=R*sqrt(1-0.25);
         #difference(){

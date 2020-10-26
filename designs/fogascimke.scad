@@ -8,20 +8,45 @@ use <atis_lib.scad>
 //fogascimke("Anya");
 //fogascimke("Apa");
 
-//polccimke("Bulcsú");
-//polccimke("Hanga");
-//polccimke("Kamilla");
-//polccimke("Olívia");
-//polccimke("Anya");
-polccimke("Apa");
-v = "2.0";
+//ApaPolcCimke();
+//AnyaPolcCimke();
+//HangaPolcCimke();
+//KamillaPolcCimke();
+//OliviaPolcCimke();
+BulcsuPolcCimke();
 
-r_rud = 4;
+module BulcsuPolcCimke(){ // make me
+    polccimke("Bulcsú");
+}
+
+module HangaPolcCimke(){ // make me
+    polccimke("Hanga");
+}
+
+module KamillaPolcCimke(){ // make me
+    polccimke("Kamilla");
+}
+
+module OliviaPolcCimke(){ // make me
+    polccimke("Olívia");
+}
+
+module AnyaPolcCimke(){ // make me
+    polccimke("Anya");
+}
+
+module ApaPolcCimke(){ // make me
+    polccimke("Apa");
+}
+
 module fogascimke(t){
+    v = "2.0";
+    r_rud = 4; //a rudazatt sugara.
+
     inset_first_layer(inset_height=0.31,inset_width=0.3, render=true)difference(){
         cube([67, 12, 30]);
         r = 4.2;
-        x = (67-41)/2-r_rud; // 4: a rudazatt sugara.
+        x = (67-41)/2-r_rud; 
         y=2.2;
         translate([x,y,0])cylinder(r=r, h=30, $fn=r*12);
         translate([67-x,y,0])cylinder(r=r, h=30, $fn=r*12);
@@ -31,8 +56,9 @@ module fogascimke(t){
 }
 
 module polccimke(t){
-    pw=12; //shelf width in mm
+    pw=15; //shelf width in mm
     w = 2;
+    v = "v2";
     inset_first_layer(inset_height=0.31,inset_width=0.3, render=true)difference(){
         difference(){
             hull(){
@@ -40,9 +66,9 @@ module polccimke(t){
                 translate([0,-25+pw/2,0])rotate(90) cube([50, pw+2*w, pw]);
             }
             translate([-5,2,w])cube([51+5, pw,pw]);
-            translate([0,-25+pw/2,0])rotate(90) translate([0,2,w])cube([51, pw,pw]);
+            translate([0,-25+pw/2-0.5,0])rotate(90) translate([0,2,w])cube([51, pw,pw]);
             translate([-pw, pw/2, 0])linear_extrude(height=3)mirror([0,1,0])text(t, size=10, valign="center",halign="", font="Purisa:style=Bold");
+            translate([10,0,pw])rotate([-0,180,0])linear_extrude(height=3)mirror([0,1,0])text(v, size=7, halign="center", font="Purisa:style=Bold");
         }
     }
-    
 }

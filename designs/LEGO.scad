@@ -14,7 +14,7 @@ difference(){
 }
 */
 
-kocka(2,2);
+kocka(2,1);
 a_scale = 8.34;
 
 // Width of the block, in studs
@@ -24,7 +24,7 @@ block_width = 2;
 block_length = 2;
 
 // Height of the block. A ratio of "1" is a standard LEGO brick height; a ratio of "1/3" is a standard LEGO plate height; "1/2" is a standard DUPLO plate.
-block_height_ratio = 1/3; // [.33333333333:1/3, .5:1/2, 1:1, 2:2, 3:3, 4:4, 5:5, 6:6, 7:7, 8:8, 9:9, 10:10]
+block_height_ratio = 1; // [.33333333333:1/3, .5:1/2, 1:1, 2:2, 3:3, 4:4, 5:5, 6:6, 7:7, 8:8, 9:9, 10:10]
 
 // What type of block should this be? For type-specific options, see the "Wings," "Slopes," "Curves", and "Baseplates" tabs.
 block_type = "brick"; // [brick:Brick, tile:Tile, wing:Wing, slope:Slope, curve:Curve, baseplate:Baseplate]
@@ -36,7 +36,7 @@ block_brand = "lego"; // [lego:LEGO, duplo:DUPLO]
 stud_type = "hollow"; // [solid:Solid, hollow:Hollow]
 
 // Should the block include round horizontal holes like the Technics LEGO bricks have?
-technic_holes = "no"; // [no:No, yes:Yes]
+technic_holes = "yes"; // [no:No, yes:Yes]
 
 // Should the block include vertical cross-shaped axle holes?
 vertical_axle_holes = "no"; // [no:No, yes:Yes]

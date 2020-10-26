@@ -1,4 +1,4 @@
-use <atis_lib.scad>;
+use <../atis_lib.scad>;
 
 //doboz(20,30 ,22);//, apa=false, anya=false);
 
@@ -14,12 +14,28 @@ use <atis_lib.scad>;
 //csavarhuzo();
 //furok();
 //pit();
+uveg_tarto();
 dw = 100;
 dd = 60;
 dh = 35;
 fr = 4;
 
 falravalo=true;
+
+module uveg_tarto(){
+
+    r_kisuveg=45/2;
+    r_kremes_muanyag=83/2;
+    r_muanyag = 90/2;
+    difference(){
+        union(){
+            doboz(dw, dd, dh, apa=false, anya=true);
+            translate([0,dd,0])doboz(dw, dd, dh, apa=false, anya=true);
+        }
+        #translate([0,0, dh-20])cylinder(r=r_kisuveg, h = 21);
+    }
+    
+}
 
 module csavar_fej(sullyesztett=true){ 
     r = sullyesztett ? 2 : 4;
@@ -151,7 +167,7 @@ module doboz_1(w, d, h, apa=true, anya=true, gap=0.4){
     }
 }
 
-module doboz(w, d, h, apa=true, anya=true, gap){
+module doboz(w, d, h, apa=true, anya=true, gap=0.4){
     csw=min(w/5, 10);
     csd=min(d/2, 30);
     csh=2*h/3;
@@ -172,4 +188,5 @@ module doboz(w, d, h, apa=true, anya=true, gap){
             translate([csw/2,d/2,csh/2]) csatlakozo(cs_v+[gap, gap, gap, gap, gap, gap]);
         }
     }
+    echo("Gap: ", gap);
 }

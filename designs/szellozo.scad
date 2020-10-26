@@ -18,9 +18,9 @@ echo(r_kurto_cso_kulso1,r_kurto_cso_kulso2, r_kurto_cso_belso);
 //inset_first_layer(inset_width=0.5, render=true)
 //       translate([0,0,1.5]) szellozo();
 
-//keringeto_elolap();
-    //translate([0,r_kurto_cso_kulso1+50.5,0])cube([100,100,100], center=true);
-inset_first_layer(inset_width=0.5, render=true) translate([0,0,1.45])elzaro_korong();
+//szellozo();
+
+ventillatoros_szellozteto();
 
 module felgomb(r){
     difference(){
@@ -35,7 +35,7 @@ module atfurt_felgomb(rg, rf){
         translate([0,0,-0.5])cylinder(r=rf, h=rg+1, $fn=rf*12);
     }
 }
-module szellozo(){
+module szellozo(){ // make me
     difference(){
         union(){
             elolap();
@@ -114,4 +114,18 @@ module keringeto_elolap(){
     }
     translate([dx, 0,0]) gyuru(dx-10+3,dx-10+3, 30,3);
     translate([-dx, 0,0]) gyuru(dx-10+3,dx-10+3, 30,3);
+}
+
+module ventillatoros_szellozteto(){
+    difference(){
+        translate([0,0,ww/2])elolap();
+        //minkowski(){
+            cube(2* r_kurto_cso_belso - 2 * rl, center = true);
+        //    cylinder(r = rl, h=0.1);
+    }
+    elhossz = 2* r_kurto_cso_belso - 2 * rl;
+    minkowski(){
+         cube([elhossz, elhossz, 39], center = true);
+         translate([0,0,39/2])cylinder(r = rl, h=0.1);
+    }
 }

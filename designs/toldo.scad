@@ -1,5 +1,9 @@
 use <atis_lib.scad>
 
+//HA kellene a menet
+//use <../Threaded_Library/Thread_Library.scad>
+//gyuru module: minden sugár külső sugár
+
 q=60;
 
 
@@ -15,7 +19,6 @@ W=w-2*gombolyites;
 R1=r1/2+gombolyites+hezag;
 R2=r2/2+gombolyites+hezag;
 R3=r3/2+gombolyites+hezag;
-R4=r4/2+gombolyites+hezag;
 
 //KregBosch();
 //Bosch();
@@ -23,7 +26,12 @@ R4=r4/2+gombolyites+hezag;
 //translate([0,0,45]) Kreg();
 //BEH600_GAF25();
 //BoschScheppachToldo();
-FelsomaroElszivoCsonk();
+//FelsomaroElszivoCsonk();
+//PVC110es_flexicsoToldo();
+//PVC110es_belso_tomiteshez_flexicsoToldo();
+//PVC110es_GAF25_belso_kulso();
+
+//Y_PVC110_belso_tomiteshez_flexi_flexi();
 
 module Kreg(){
     R1_kreg= 14.5;
@@ -108,7 +116,7 @@ module Scheppach(){
 }
 
 module FelsomaroElszivoCsonk(){
-    translate([0,0,4])Scheppach();
+    translate([0,0,4])SchY_PVC110_belso_tomiteshez_flexi_flexi()eppach();
     w = 158;
     h = 146; // teglalap esetén mindig h legyen a nagyobb, hogy a lyukakat megfelelően pozícionálja
     wl = 15; //oldalfal szélessége
@@ -134,3 +142,116 @@ module FelsomaroElszivoCsonk(){
        translate([-w/2, -h/2-10, 0])rotate([0,-sz,0])cube([10,h+20,10]);
     }
 }
+
+
+/* Module ötlet: felso_kulso, also_kulso, falvastagsag, kupossag. Ez utolsó mm-ben megadja a toldó 2 végének a szükölését a külső átmérők körül.
+   összesen 4 különböző kombináció van:
+   1. Felső kívül, alsó belül - alsó kívül, felső belül --> ez egy esetként kezelhető a felső alsó felcserélésével
+   2. Felső kívül, alsó kívül
+   3. Felső belül, alsó belül
+
+A flexibilis cső felöli végére van karima a bilincses rögzítéshez.
+*/
+
+
+module PVC110es_flexicsoToldo(){
+     PVC110_r_kulso = 55;   //110mm a külső átmérő
+     flexicso_r_belso = 51;   // a gyári galléros műanyag elem átmérője 102mm
+     fal_d = 2;
+     
+     felso_kulso = PVC110_r_kulso+fal_d;
+     
+     gyuru(felso_kulso-1, felso_kulso+fal_d+1,50, fal_d);
+     translate([0,0,-10])gyuru(flexicso_r_belso+1, felso_kulso, 10, fal_d);
+     translate([0,0,-60])gyuru(flexicso_r_belso-1,flexicso_r_belso+1, 50, fal_d);
+ }
+ 
+ 
+ // Tömítés nélkülio véghez belső
+ module PVC110es_belso_flexicsoToldo(){
+     PVC110_r_belso = 52.5;   //110mm a külső átmérő
+     flexicso_r_belso = 51;   // a gyári galléros műanyag elem átmérője 102mm
+     fal_d = 2;
+     
+     gyuru(PVC110_r_belso+1, PVC110_r_belso-1,50, fal_d);
+     translate([0,0,-10])gyuru(flexicso_r_belso+1, PVC110_r_belso+1, 10, fal_d);
+     translate([0,0,-60])gyuru(flexicso_r_belso-1,flexicso_r_belso+1, 50, fal_d);
+     translate([0,0,-60])gyuru(flexicso_r_belso, flexicso_r_belso,10,fal_d);
+ }
+ 
+ 
+ //Tömítéses véghez belső
+ module PVC110es_belso_tomiteshez_flexicsoToldo(){
+     PVC110_r_belso = 55;   //110mm a belső átmérő a tömített végen
+     flexicso_r_belso = 51;   // a gyári galléros műanyag elem átmérője 102mm
+     fal_d = 2;
+     
+     gyuru(PVC110_r_belso+1, PVC110_r_belso-1,50, fal_d);
+     translate([0,0,-10])gyuru(flexicso_r_belso+1, PVC110_r_belso+1, 10, fal_d);
+     translate([0,0,-60])gyuru(flexicso_r_belso-1,flexicso_r_belso+1, 50, fal_d);
+     translate([0,0,-60])gyuru(flexicso_r_belso, flexicso_r_belso,10,fal_d);
+ }
+ 
+ // Tömítéses véghez belső
+ module PVC110es_GAF25_belso_kulso(){
+     PVC110_r_belso = 55; //110mm a belső átmérő a tömített végen
+     GAF_r_kulso = 59/2;
+     fal_d = 2;
+     
+     kulso_r = GAF_r_kulso+fal_d;
+     
+     gyuru(PVC110_r_belso+1, PVC110_r_belso-1,50, fal_d);
+     translate([0,0,-40])gyuru(kulso_r-0.5, PVC110_r_belso+1, 40, fal_d);
+     translate([0,0, -70])gyuru(kulso_r, kulso_r-0.5, 30, fal_d);
+ }
+ 
+ bestway_medence_gegecso_szivattyu_adapter();
+ 
+ module bestway_medence_gegecso_szivattyu_adapter(){
+     gege_kulso_r=34/2;
+     fal_d=4;
+     szivattyu_kulso_r=82.4/2;
+     
+     h_gege = 30;
+     h_kup = 50;
+     h_gyuru = 10;
+     translate([0,0,h_gyuru+h_kup])gyuru(gege_kulso_r+2, gege_kulso_r-1, 30,fal_d);
+     translate([0,0,h_gyuru])gyuru(szivattyu_kulso_r+fal_d, gege_kulso_r+2, h_kup, fal_d);
+     
+     gyuru(szivattyu_kulso_r+fal_d, szivattyu_kulso_r+fal_d, h_gyuru, fal_d);
+ }
+ 
+ // Y tömítéses véghez
+ 
+ module Y_PVC110_belso_tomiteshez_flexi_flexi(){
+     PVC110_r_belso = 55; //110mm a belső átmérő a tömített végen
+     flexicso_r_belso = 51; 
+     fal_d = 2;
+     gyuru(PVC110_r_belso+1, PVC110_r_belso-1,50, fal_d);
+     M1 = [ [ 1  , 0  , -70/90  , 0   ],
+      [ 0  , 1  , 0 , 0   ],  // The "0.7" is the skew value; pushed along the y axis as z changes.
+      [ 0  , 0  , 1  , 0   ],
+      [ 0  , 0  , 0  , 1   ] ] ;
+     translate([70,0,-90]) difference(){
+        multmatrix(M1)gyuru(flexicso_r_belso+1, PVC110_r_belso+1, 90, fal_d);
+        translate([-220,-75,0])cube([150,150,150]);
+     }
+     M2 = [ [ 1  , 0  , 70/90  , 0   ],
+      [ 0  , 1  , 0 , 0   ],  // The "0.7" is the skew value; pushed along the y axis as z changes.
+      [ 0  , 0  , 1  , 0   ],
+      [ 0  , 0  , 0  , 1   ] ] ;
+     translate([-70,0,-90])difference(){
+         multmatrix(M2)gyuru(flexicso_r_belso+1, PVC110_r_belso+1, 90, fal_d);
+         translate([70,-75,0])cube([150,150,150]);
+     }
+     translate([70,0,-140])flexicso_veg(fal_d);
+     translate([-70,0,-140])flexicso_veg(fal_d);
+     
+ }
+ 
+ module flexicso_veg(fal_d, flexicso_r_belso = 51){
+    
+ 
+     gyuru(flexicso_r_belso-1,flexicso_r_belso+1, 50, fal_d);
+     gyuru(flexicso_r_belso, flexicso_r_belso,10,fal_d);
+ }
