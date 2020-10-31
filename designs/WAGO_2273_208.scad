@@ -1,0 +1,1 @@
+import("wago_3x_souple.stl");
