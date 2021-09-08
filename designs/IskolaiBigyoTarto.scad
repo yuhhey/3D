@@ -21,8 +21,8 @@ delta_m = nagy_gyd_m + fv + 2 * gap;
 
 //translate([fv + gap, 0, fv + gap]) fiok();
 //keret();
-fiok();
-//felso_fiok();
+//fiok();
+felso_fiok();
 
 //gombolyitett_cube([100,120,130]);
 
@@ -60,7 +60,7 @@ module fiok(){
 
 module felso_fiok(){
     difference(){
-        gombolyitett_cube([keret_sz - 2 * fv - 2 * gap, keret_h - fv, gyd_m - 2 * gap]);
+        gombolyitett_cube([keret_sz - 2 * fv - 2 * gap, keret_h - fv - gap, gyd_m - 2 * gap]);
         translate([fv, fv, fv])cube([keret_sz - 2 * fv - 2 * gap - 2*fv, keret_h - fv - 2 * fv, gyd_m - 2 * gap - fv]);
     }
 }
