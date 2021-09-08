@@ -13,14 +13,34 @@ use <../atis_lib.scad>;
 //translate([60.5,10,0])rotate(90)
 //csavarhuzo();
 //furok();
-//pit();
-uveg_tarto();
+translate([0,150,0])pit();
+//uveg_tarto();
+
+kemcso_tarto();
 dw = 100;
 dd = 60;
 dh = 35;
 fr = 4;
+gap = 0.4;
 
 falravalo=true;
+
+module kemcso_tarto(){
+    d_kemcso=16;
+    n_sor = 3;
+    n_oszlop = 5;
+    hezag = 5;
+    w = n_oszlop * d_kemcso + hezag * (n_oszlop + 1) + 10; //A kémcső vastagabb mint a csatlakozó
+    depth = n_sor * d_kemcso + hezag * (n_sor + 1);
+    doboz_1(w, depth, 70, apa=!falravalo){
+        r_kemcso = d_kemcso / 2;
+        for(x = [hezag+r_kemcso : d_kemcso+hezag : w-hezag]){
+            for(y = [hezag+r_kemcso: d_kemcso+hezag: depth-hezag]){
+                translate([10+x,y,10]) cylinder(r=r_kemcso+gap, h = 70, $fn=(r_kemcso+gap)*12);
+            }
+        }
+    }
+}
 
 module uveg_tarto(){
 
