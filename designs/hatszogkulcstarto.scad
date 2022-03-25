@@ -13,6 +13,22 @@ translate(nysz_xy(0,1,r+fv)) egyhely(r,m,fv);
 */
 
 dugo(r,h,fv,false);
+
+//tarto();
+helyek = [[1,0],
+          [1,1],
+          [2,0],
+          [2,1],
+          ];
+module tarto(){
+    egyhely(r,m,fv,false);
+    for (h = helyek) {
+        x=h[0];
+        y=h[1];
+        translate(nysz_xy(x,y,r+fv)) egyhely(r,m,fv);
+    }
+}
+
 module nyolcszog(r, h, g=false){
     if (g) {
         minkowski(){
@@ -27,10 +43,10 @@ module nyolcszog(r, h, g=false){
 module egyhely(r,h,fv,g=false){
     difference(){
         nyolcszog(r+fv, h, g);
-        translate([0,0,2*fv])nyolcszog(r, h, g);
+        translate([0,0,2*fv])nyolcszog(r, h, false);
     }
 }
 
 module dugo(r,h,fv,g){
-    nyolcszog(r-lotyoges, m-fv, true);
+    nyolcszog(r-lotyoges, m-fv, true); // egy fv-nyit kilóg felfele.
 }
