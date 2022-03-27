@@ -29,12 +29,13 @@ lyukhelyek = [[0,0],
 
 x_max =18;
 y_max = 11;
+kihagyas = 11;
 
 module tarto(){
     difference(){
         for (x=[1:x_max]){
             for(y=[y_max/x_max*x:0]){
-                if ((x_max*x+y) % 13)
+                if ((x_max*x+y) % kihagyas)
                     translate(nysz_xy(x,y,r+fv)) egyhely(r,m,fv);
             }
         }
