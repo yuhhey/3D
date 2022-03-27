@@ -21,26 +21,22 @@ translate(nysz_xy(0,1,r+fv)) egyhely(r,m,fv);
 tarto();
 
 
-helyek = [[0,0],
-          [1,0],
-          [2,0],
-          [3,0],
-          [4,0],
-          [1,1],
-          [1,2],
-          [2,1],
-          [3,1]];
+
           
 lyukhelyek = [[0,0],
               [1,2]
               ];
-          
+
+x_max =18;
+y_max = 11;
+
 module tarto(){
     difference(){
-        for (h = helyek) {
-            x=h[0];
-            y=h[1];
-            translate(nysz_xy(x,y,r+fv)) egyhely(r,m,fv);
+        for (x=[1:x_max]){
+            for(y=[y_max/x_max*x:0]){
+                if ((x_max*x+y) % 13)
+                    translate(nysz_xy(x,y,r+fv)) egyhely(r,m,fv);
+            }
         }
         for (h = lyukhelyek){
             x=h[0];
