@@ -16,7 +16,9 @@ translate(nysz_xy(1,0,r+fv)) egyhely(r,m,fv);
 translate(nysz_xy(0,1,r+fv)) egyhely(r,m,fv);
 */
 
-dugo_nagy(r,m,fv,false);
+
+//dugo_nagy(r,m,fv,false);
+dugo(r,m,fv,false);
 //egyhely(r+0.5,m+1,fv);
 //tarto();          
 lyukhelyek = [[1,0],
@@ -74,10 +76,10 @@ module dugo(r,m,fv,g){
     difference(){
         union(){
             translate([0,0,1.5])nyolcszog(r-lotyoges, m-fv, true); // egy fv-nyit kilóg felfele.
-            translate([0,0,m-5])rotate([90,0,0])rotate_extrude($fn=96) translate([5,0,0])circle(r=3);
+            translate([0,0,m-5])rotate([90,0,30])rotate_extrude($fn=96) translate([5,0,0])circle(r=3);
             
         }
-        translate([0,0,m+8-3])rotate([0,90,0])rotate_extrude($fn=96) translate([8,0,0])circle(r=2);
+        translate([0,0,m+8-3])rotate([0,90,30])rotate_extrude($fn=96) translate([8,0,0])circle(r=2);
     }        
         
 }
@@ -89,10 +91,10 @@ module dugo_nagy(r,m,fv,g){
     difference(){
         union(){
             translate([0,0,1.5])nyolcszog(r-lotyoges, hosszitas+m-fv, true); // egy fv-nyit kilóg felfele.
-            translate([0,0,m-5+hosszitas])rotate([90,0,0])rotate_extrude($fn=96) translate([5,0,0])circle(r=3);
+            translate([0,0,m-5+hosszitas])rotate([90,0,30])rotate_extrude($fn=96) translate([5,0,0])circle(r=3);
             
         }
-        translate([0,0,m+8-4+hosszitas])rotate([0,90,0])rotate_extrude($fn=96) translate([10,0,0])circle(r=4);
+        translate([0,0,m+8-4+hosszitas])rotate([0,90,30])rotate_extrude($fn=96) translate([10,0,0])circle(r=4);
     }        
        
         
