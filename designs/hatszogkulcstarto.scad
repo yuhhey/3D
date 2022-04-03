@@ -1,7 +1,7 @@
 r=10;
 m=20;
 fv=2.5;
-lotyoges=0.2;
+lotyoges=0.4;
 d_lyukfej=7.5;
 h_lyukfej=2.5;
 d_lyukszar=4;
@@ -16,33 +16,32 @@ translate(nysz_xy(1,0,r+fv)) egyhely(r,m,fv);
 translate(nysz_xy(0,1,r+fv)) egyhely(r,m,fv);
 */
 
-//dugo(r,m,fv,false);
+dugo_nagy(r,m,fv,false);
 //egyhely(r+0.5,m+1,fv);
-tarto();
-
-
-
-          
-lyukhelyek = [[0,0],
-              [1,2]
+//tarto();          
+lyukhelyek = [[1,0],
+              [12,0],
+              [12,7]
               ];
 
-x_max =18;
-y_max = 11;
-kihagyas = 11;
+x_max =12;
+y_max = 7;
+teli_helyek_aranya=1;
 
 module tarto(){
     difference(){
         for (x=[1:x_max]){
-            for(y=[y_max/x_max*x:0]){
-                if ((x_max*x+y) % kihagyas)
+            for(y=[0:y_max/x_max*x]){
+                ures = rands(0,1,1)[0];
+                
+                if (ures < (teli_helyek_aranya))
                     translate(nysz_xy(x,y,r+fv)) egyhely(r,m,fv);
             }
         }
         for (h = lyukhelyek){
             x=h[0];
             y=h[1];
-            translate(nysz_xy(x,y,r+fv)) csavarlyuk();
+            #translate(nysz_xy(x,y,r+fv)) csavarlyuk();
         }
     }
 }
@@ -70,7 +69,6 @@ module csavarlyuk(){
     translate([0,0,-.1])cylinder(r=d_lyukszar/2,h=2*fv,$fn=6*d_lyukszar);
 }
 
-
 module dugo(r,m,fv,g){
     
     difference(){
@@ -80,6 +78,21 @@ module dugo(r,m,fv,g){
             
         }
         translate([0,0,m+8-3])rotate([0,90,0])rotate_extrude($fn=96) translate([8,0,0])circle(r=2);
+    }        
+        
+}
+
+
+module dugo_nagy(r,m,fv,g){
+    
+    hosszitas=8;
+    difference(){
+        union(){
+            translate([0,0,1.5])nyolcszog(r-lotyoges, hosszitas+m-fv, true); // egy fv-nyit kilóg felfele.
+            translate([0,0,m-5+hosszitas])rotate([90,0,0])rotate_extrude($fn=96) translate([5,0,0])circle(r=3);
+            
+        }
+        translate([0,0,m+8-4+hosszitas])rotate([0,90,0])rotate_extrude($fn=96) translate([10,0,0])circle(r=4);
     }        
        
         
