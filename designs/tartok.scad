@@ -20,6 +20,7 @@ slack = 0.5;
 difference(){
     szellozos_tarto(120, 120, 30, 10,3);
     translate([3+10,120-0.2,3])cube([120+2*slack-2*10,2*3,30+2*slack]);
+
 }
 
 // Apa telefon?? talán a számítógépállványra kéne tenni.
