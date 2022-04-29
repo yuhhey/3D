@@ -29,18 +29,28 @@ module iptvDV5819B_tarto(){
 }
 
 
-laptop_h = 23;
+laptop_d = 50;
+laptop_h = 24;
+macbook_h = laptop_h+4;
 laptop_ww = 4;
-laptopslot_h = laptop_h - laptop_ww;
+laptop_w = 240;
+laptopslot_h = laptop_h - laptop_ww; //Az alját nem csináljuk meg, ezért ez le kell vonni a magasságból
+macbookslot_h = macbook_h-laptop_ww;
+ipad_h = 12-laptop_ww;
 difference(){
     union(){
-        tarto(233, 195, laptopslot_h, 0,laptop_ww);
-        translate([0,0,laptop_h+laptop_ww+2*slack]) tarto(233, 195, laptopslot_h, 0,laptop_ww);
-        translate([0,0,2*(laptop_h+laptop_ww)+4*slack]) tarto(233, 195, laptopslot_h, 0,laptop_ww);
-        translate([241+2*slack,0,3*(laptop_h+laptop_ww)+6*slack+15]) rotate([0,180,0])tarto(233, 195, 10, 0,laptop_ww);
-        translate([80, 190, 0])cube([161+2*slack, 2*laptop_ww, 3*(laptop_h+laptop_ww)+6*slack+15]);
+        tarto(laptop_w, laptop_d, macbookslot_h, 0,laptop_ww);
+        translate([0,0,macbookslot_h+2*laptop_ww+2*slack]){
+            tarto(laptop_w, laptop_d, laptopslot_h, 0,laptop_ww);
+            translate([0,0,laptopslot_h+2*laptop_ww+2*slack]){
+                tarto(laptop_w, laptop_d, laptopslot_h, 0,laptop_ww);
+            }
+        }
+        translate([laptop_w+2*laptop_ww+2*slack,0,3*(laptopslot_h+2*laptop_ww)+6*slack+ipad_h+2*laptop_ww]) rotate([0,180,0])tarto(laptop_w, laptop_d, ipad_h, 0,laptop_ww);
+
     }
-    translate([0, 195-1, 0])cube([243+2*slack, 2*laptop_ww, 3*(laptop_h+laptop_ww)+6*slack+15]);
+    translate([3*laptop_ww, laptop_d-1, 0])cube([60, 2*laptop_ww, 3*(laptop_h+laptop_ww)+6*slack+ipad_h+2*laptop_ww]);
+    translate([laptop_w-laptop_ww-60, laptop_d-1, 0])cube([60, 2*laptop_ww, 3*(laptop_h+laptop_ww)+6*slack+ipad_h+2*laptop_ww]);
 }
 // Apa telefon?? talán a számítógépállványra kéne tenni.
 
