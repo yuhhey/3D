@@ -30,7 +30,7 @@ module iptvDV5819B_tarto(){
 
 laptop_d = 50;
 laptop_h = 24;
-macbook_h = laptop_h+4;
+macbook_h = laptop_h+2;
 laptop_ww = 4;
 laptop_w = 240;
 laptopslot_h = laptop_h - laptop_ww; //Az alját nem csináljuk meg, ezért ez le kell vonni a magasságból
@@ -54,7 +54,7 @@ difference(){
     lyukak = [[macbook_h+2*slack,0],
               [laptop_h+2*slack, macbook_h + laptop_ww + 2 * slack], 
               [laptop_h+2*slack, macbook_h + laptop_h + 2 * laptop_ww + 2 * slack],
-              [ipad_h, macbook_h + 2 * laptop_h + 3 * laptop_ww + 6 * slack]];
+              [ipad_h-laptop_ww, macbook_h + 2 * laptop_h + 3 * laptop_ww + 6 * slack]];
     for(l = lyukak){
         h = l[0];
         z = l[1];
