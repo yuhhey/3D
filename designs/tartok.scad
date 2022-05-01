@@ -29,7 +29,7 @@ module iptvDV5819B_tarto(){
 }
 
 laptop_d = 50;
-laptop_h = 24;
+laptop_h = 24.5;
 macbook_h = laptop_h+2;
 laptop_ww = 4;
 laptop_w = 240;
@@ -46,7 +46,7 @@ difference(){
                 tarto(laptop_w, laptop_d, laptopslot_h, 0,laptop_ww);
             }
         }
-        translate([laptop_w+2*laptop_ww+2*slack,0,3*(laptopslot_h+2*laptop_ww)+8*slack+ipad_h+laptop_ww]) 
+        translate([laptop_w+2*laptop_ww+2*slack,0,macbook_h+2*(laptopslot_h+2*laptop_ww)+8*slack+ipad_h+laptop_ww]) 
             rotate([0,180,0])
                 tarto(laptop_w, laptop_d, ipadslot_h, 0,laptop_ww);
 
