@@ -93,17 +93,10 @@ module szellozos_tarto(w, d, h_r, d_r, ww=2){
             translate([0,0, ww+h_r+slack*2])tarto(w, d, h_r, d_r, ww, teljes_alj=false);
         }
         translate([ww+d_r,0,ww+h_r+slack*2]){
-<<<<<<< HEAD
             translate([0,-0.1, -0.1])cube([w-2*d_r, d, 2*ww], center=false);
-=======
-            translate([0,-0.1, -0.1])cube([w-2*d_r, d-d_r, 2*ww], center=false);
->>>>>>> 1f128ac4e45120c9057f5c941c7d4f68cb837589
+
             translate([0,d-0.2,ww])cube([w+2*slack-2*d_r,2*ww,h_r+2*slack]);
         }
     }
 }
-<<<<<<< HEAD
-    
-=======
-    
->>>>>>> 1f128ac4e45120c9057f5c941c7d4f68cb837589
+
