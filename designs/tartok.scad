@@ -28,12 +28,12 @@ module iptvDV5819B_tarto(){
     }
 }
 
-laptop_d = 50;
+laptop_d = 300;
 laptop_h = 24.5;
 macbook_h = laptop_h+2;
 laptop_ww = 4;
 laptop_w = 240;
-laptopslot_h = laptop_h - laptop_ww; //Az alját nem csináljuk meg, ezért ez le kell vonni a magasságból
+laptopslot_h = laptop_h - laptop_ww; //Az alját nem csináljuk meg, ezért ezt le kell vonni a magasságból
 macbookslot_h = macbook_h-laptop_ww;
 ipad_h = 12;
 ipadslot_h = ipad_h - laptop_ww;
@@ -51,9 +51,9 @@ difference(){
                 tarto(laptop_w, laptop_d, ipadslot_h, 0,laptop_ww);
 
     }
-    lyukak = [[macbook_h+2*slack,0],
-              [laptop_h+2*slack, macbook_h + laptop_ww + 2 * slack], 
-              [laptop_h+2*slack, macbook_h + laptop_h + 2 * laptop_ww + 2 * slack],
+    lyukak = [[macbook_h+2*slack-laptop_ww,0],
+              [laptop_h+2*slack-laptop_ww, macbook_h + laptop_ww + 2 * slack], 
+              [laptop_h+2*slack-laptop_ww, macbook_h + laptop_h + 2 * laptop_ww + 2 * slack],
               [ipad_h-laptop_ww, macbook_h + 2 * laptop_h + 3 * laptop_ww + 6 * slack]];
     for(l = lyukak){
         h = l[0];
