@@ -1,8 +1,19 @@
+// Gyűrű fix falvastagsággal. Ez az eredeti. Nem változtatom meg, mert több helyen már használom
 module gyuru(r1, r2,h, w, center=false){
     difference(){
         cylinder(r1=r1,r2=r2,h, center=center, $fn=12*r1);
         translate([0,0,-0.1])cylinder(r1=r1-w, r2=r2-w,h+0.2, center=center, $fn=12*(r1-w)); // trükközés: már preview-ban is normálisan jelenjen meg a gyűrű
     }
+}
+
+// Gyűrű fix belső átmérővel
+
+module gyuru_fixrb(r1, r2, h, r_belso, center=false){
+    difference(){
+        cylinder(r1=r1, r2=r2, h, center=center, $fn=12*r1);
+        translate([0,0,-0.1])cylinder(r=r_belso, h+0.2, center=center, $fn=12*r_belso);
+    }
+    
 }
 
 //inset_width= min(nozzle dia/2, 0.4)
@@ -116,4 +127,23 @@ module kivagas(l, d, w){
         cylinder(r1=d/2, r2=d/2+2,h = 2, $fn=12*d/2);
         translate([l-d,0,0])cylinder(r1=d/2, r2=d/2+2, h=2, $fn=12*d/2);
     }
+}
+
+function shelly1L_befoglalo() = [44, 38, 14];
+
+module shelly1L(){
+    b = shelly1L_befoglalo();
+    s_h = b[2];
+    s_w = b[0];
+    s_d = b[1];
+    module lecsapott_sarok(){
+        echo(s_h);
+        linear_extrude(height=s_h)polygon([[0,0],[0,11],[11,0],[0,0]]);
+    }
+    difference(){
+        cube([s_w,s_d,s_h]);
+        lecsapott_sarok();
+        translate([s_w,0,0])rotate(90)lecsapott_sarok();
+    }
+    
 }
