@@ -130,6 +130,11 @@ module kivagas(l, d, w){
 }
 
 function shelly1L_befoglalo() = [44, 38, 14];
+function shellyRGBW2_befoglalo() = shelly1L_befoglalo();
+
+module shellyRGBW2(){
+    shelly1L();
+}
 
 module shelly1L(){
     b = shelly1L_befoglalo();
