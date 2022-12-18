@@ -6,10 +6,10 @@ vv = 5;
 // Gallér magasság
 h = 15;
 // lyuk átmérő
-d = 10;
+d = 12;
 
 //Lyuk középpont koordináta a saroktól számítva
-x = 24;
+x = 22;
 y = 22;
 
 // Fixen 10mm-rel nyúlik túla lyukon
