@@ -18,9 +18,11 @@ translate(nysz_xy(0,1,r+fv)) egyhely(r,m,fv);
 
 
 //dugo_nagy(r,m,fv,false);
-dugo(r,m,fv,false);
+//dugo(r,m,fv,false);
 //egyhely(r+0.5,m+1,fv);
 //tarto();          
+
+egyestarto();
 lyukhelyek = [[1,0],
               [12,0],
               [12,7]
@@ -29,6 +31,24 @@ lyukhelyek = [[1,0],
 x_max =12;
 y_max = 7;
 teli_helyek_aranya=1;
+
+module egyestarto(){
+    helyek = [[-1,1],
+              [0,1],
+              [1,0],
+              [2,1],
+              [3,0],
+              [4,1],
+              [5,0],
+              [6,1],
+              [7,0],
+              [8,1],
+              [9,0]];
+    
+    for(h = helyek){
+        translate(nysz_xy(h[0], h[1], r+fv)) egyhely(r,m,fv);
+    }
+}
 
 module tarto(){
     difference(){
