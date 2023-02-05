@@ -8,7 +8,7 @@ d = 100; // lidl 1.5L-es narancsleves üveghez
 tures = 0.1;
 echo(max(tures));
 proba = false;
-blackbelt = true;
+blackbelt = false;
 fuvoka_meret = 0.8;
 
 keret = 3;
