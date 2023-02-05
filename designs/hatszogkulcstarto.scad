@@ -18,9 +18,13 @@ translate(nysz_xy(0,1,r+fv)) egyhely(r,m,fv);
 
 
 //dugo_nagy(r,m,fv,false);
-dugo(r,m,fv,false);
+//dugo(r,m,fv,false);
 //egyhely(r+0.5,m+1,fv);
-//tarto();          
+//tarto(); 
+
+nagymeretu_tarolo();
+
+//egyestarto();
 lyukhelyek = [[1,0],
               [12,0],
               [12,7]
@@ -30,12 +34,29 @@ x_max =12;
 y_max = 7;
 teli_helyek_aranya=1;
 
+module egyestarto(){
+    helyek = [[-1,1],
+              [0,1],
+              [1,0],
+              [2,1],
+              [3,0],
+              [4,1],
+              [5,0],
+              [6,1],
+              [7,0],
+              [8,1],
+              [9,0]];
+    
+    for(h = helyek){
+        translate(nysz_xy(h[0], h[1], r+fv)) egyhely(r,m,fv);
+    }
+}
+
 module tarto(){
     difference(){
         for (x=[1:x_max]){
             for(y=[0:y_max/x_max*x]){
-                ures = rands(0,1,1)[0];
-                
+                ures = rands(0,1,1)[0];                
                 if (ures < (teli_helyek_aranya))
                     translate(nysz_xy(x,y,r+fv)) egyhely(r,m,fv);
             }
@@ -43,11 +64,13 @@ module tarto(){
         for (h = lyukhelyek){
             x=h[0];
             y=h[1];
-            #translate(nysz_xy(x,y,r+fv)) csavarlyuk();
+            translate(nysz_xy(x,y,r+fv)) csavarlyuk();
         }
     }
 }
 
+
+// atis_lib.scad jelolt
 module nyolcszog(r, h, g=false){
     if (g) {
         minkowski(){
@@ -72,7 +95,6 @@ module csavarlyuk(){
 }
 
 module dugo(r,m,fv,g){
-    
     difference(){
         union(){
             translate([0,0,1.5])nyolcszog(r-lotyoges, m-fv, true); // egy fv-nyit kilóg felfele.
@@ -80,13 +102,10 @@ module dugo(r,m,fv,g){
             
         }
         translate([0,0,m+8-3])rotate([0,90,30])rotate_extrude($fn=96) translate([8,0,0])circle(r=2);
-    }        
-        
+    }                
 }
 
-
 module dugo_nagy(r,m,fv,g){
-    
     hosszitas=8;
     difference(){
         union(){
@@ -95,7 +114,19 @@ module dugo_nagy(r,m,fv,g){
             
         }
         translate([0,0,m+8-4+hosszitas])rotate([0,90,30])rotate_extrude($fn=96) translate([10,0,0])circle(r=4);
-    }        
-       
-        
+    }               
+}
+
+module up(){
+    echo(0);
+}
+
+module nagymeretu_tarolo(){
+    helyek=[[0,0],
+            [1,0],
+            [0,1]];
+    R=54;
+    for(h = helyek){
+        translate(nysz_xy(h[0], h[1], R+fv)) egyhely(R,R,fv);
+    }
 }
