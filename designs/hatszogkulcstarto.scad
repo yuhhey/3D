@@ -64,7 +64,7 @@ module tarto(){
         for (h = lyukhelyek){
             x=h[0];
             y=h[1];
-            translate(nysz_xy(x,y,r+fv)) csavarlyuk();
+            
         }
     }
 }
@@ -125,8 +125,8 @@ module nagymeretu_tarolo(){
     helyek=[[0,0],
             [1,0],
             [0,1]];
-    R=54;
+    R=50;
     for(h = helyek){
-        translate(nysz_xy(h[0], h[1], R+fv)) egyhely(R,R,fv);
+        translate(nysz_xy(h[0], h[1], R+fv)) egyhely(R,150,fv);
     }
 }
