@@ -14,8 +14,8 @@ hossz=60;
 sz=20;
 difference(){
     cube([hossz,sz,fv]);
-    translate([-0.05,(sz-6),perem_vastagsag])cube([hossz+.1,sz,fv-perem_vastagsag+.1]);
-    translate([0,(sz-6)/2, 2*fv])
+    translate([-0.1,(sz-6),perem_vastagsag])cube([hossz+.2,sz,fv-perem_vastagsag+.1]);
+    translate([0,(sz-6)/2, 2*fv-.1])
     for(x=[hossz/4,3/4*hossz]){
         translate([x,0,0])
             mirror([0,0,1])#csavarlyuk(fv,
