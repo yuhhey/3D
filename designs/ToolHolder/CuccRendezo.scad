@@ -13,13 +13,10 @@ use <../atis_lib.scad>;
 //translate([60.5,10,0])rotate(90)
 //csavarhuzo();
 //furok();
-//translate([0,150,0])pit();
+translate([0,150,0])pit();
 //uveg_tarto();
 
-//kemcso_tarto();
-
-//doboz_1(20,3*16+5*4,70,true, false);
-falitarto();
+kemcso_tarto();
 dw = 100;
 dd = 60;
 dh = 35;

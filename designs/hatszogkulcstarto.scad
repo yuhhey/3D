@@ -17,12 +17,12 @@ translate(nysz_xy(0,1,r+fv)) egyhely(r,m,fv);
 */
 
 
-//dugo_nagy(r,m,fv,false);
+dugo_nagy(r,m,fv,false);
 //dugo(r,m,fv,false);
 //egyhely(r+0.5,m+1,fv);
 //tarto(); 
 
-nagymeretu_tarolo();
+//nagymeretu_tarolo();
 
 //egyestarto();
 lyukhelyek = [[1,0],
@@ -64,7 +64,7 @@ module tarto(){
         for (h = lyukhelyek){
             x=h[0];
             y=h[1];
-            
+            translate(nysz_xy(x,y,r+fv)) csavarlyuk();
         }
     }
 }
@@ -125,8 +125,8 @@ module nagymeretu_tarolo(){
     helyek=[[0,0],
             [1,0],
             [0,1]];
-    R=50;
+    R=54;
     for(h = helyek){
-        translate(nysz_xy(h[0], h[1], R+fv)) egyhely(R,150,fv);
+        translate(nysz_xy(h[0], h[1], R+fv)) egyhely(R,R,fv);
     }
 }
