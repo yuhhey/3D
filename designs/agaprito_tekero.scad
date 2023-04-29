@@ -1,7 +1,8 @@
-ww = 2;
-D = 57;
-H = 20;
-bemelyedes = 15;
+ww = 2; // korong oldalvastagsága
+bww = 13; // Az alja vastagsága
+D = 56;
+H = 10;
+bemelyedes = 14;
 br=40;
 d = 20;
 
@@ -9,12 +10,12 @@ r = D/2;
 translate([30,0,0])difference(){
     union(){
         difference(){
-           R = (D+ww)/2;
-            cylinder(r=R, h=H+ww, $fn = 12*R);
-            cylinder(r1=r-1, r2=r, h=H, $fn = 12*r);
+           R = (D+2*ww)/2;
+            cylinder(r=R, h=H+bww, $fn = 12*R);
+            cylinder(r1=r, r2=r-1, h=H, $fn = 12*r);
         }
 
-        translate([0,0,-.0]){
+        translate([0,0,-0]){
             kr = d / 2;
             cylinder(r1 = kr-1, r2=kr, h=H, $fn=12*kr);
             intersection(){
@@ -30,5 +31,5 @@ translate([30,0,0])difference(){
             }
         }
     }
-    translate([0,0,ww+.1])cylinder(r=3.8,h=H, $fn=12*4);
+    #translate([0,0,bww+.1])cylinder(r=4.8,h=H, $fn=12*4);
 }
