@@ -1,9 +1,9 @@
-ww = 5;
-D = 60;
+ww = 2;
+D = 57;
 H = 20;
 bemelyedes = 15;
 br=40;
-d = 19;
+d = 20;
 
 r = D/2;
 translate([30,0,0])difference(){
