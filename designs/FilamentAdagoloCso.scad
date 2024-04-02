@@ -3,8 +3,8 @@ d_belso = 25;
 hossz = 100;
 h_atlapolas = 30;
 
-apa();
-//anya();
+//apa();
+anya();
 
 module cso(H=hossz){
         difference(){
