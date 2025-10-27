@@ -1,11 +1,14 @@
+use <atis_lib.scad>
+
 pcb_w = 107;
 pcb_d = 80.5;
 pcb_h = 2;
+pcb_hezag = 0.5;
 pin_h = 3;
 part_h = 18;
 grove_d = 2; // vályat oldalon ilyen mély bemarás kell
-screwhole_dx = 5+1.6; // a két rögzítő csavar furat középpontjának a pcb szélétől mért távolsága
-screwhole_tamasz = 10; // a furatlyuk felfekvésének oldalhoszza. Négyzettel számolunk.
+
+screwhole_tamasz = 10+2*pcb_hezag; // a furatlyuk felfekvésének oldalhoszza. Négyzettel számolunk.
 ww = 2; // A doboz falvastagsága
 karima = 5;
 tures=0;
@@ -14,38 +17,57 @@ tures=0;
 // Két részből rakjuk össze: a PCB felső síkjáig tart az egyik és onnan folytatódik a teteje
 
 
-teljes_w = pcb_w + 2 * ww;
-teljes_d = pcb_d + 2 * ww;
+teljes_w = pcb_w + 2 * pcb_hezag + 2 * ww;
+teljes_d = pcb_d + 2 * pcb_hezag + 2 * ww;
 also_h = ww + pin_h + pcb_h + karima;
 felso_h = part_h + ww;
 
-felso_fel();
-//translate([110,100,0])also_fel();
+//felso_fel();
+//translate([110,100,0])
+also_fel();
 
 module also_fel(){
     difference(){
         translate([-ww, -ww, -ww])cube([teljes_w, teljes_d, also_h]);
         
-        cube([pcb_w, pcb_d-grove_d,pin_h+3]);
-        translate([0,0,pin_h])cube([pcb_w, pcb_d, pcb_h+karima +.1]);
+        translate([0, screwhole_tamasz,0])cube([pcb_w+2*pcb_hezag, pcb_d-grove_d+2*pcb_hezag-screwhole_tamasz,pin_h+3]);
+        translate([screwhole_tamasz,0,0])cube([pcb_w+2*pcb_hezag-2*screwhole_tamasz, screwhole_tamasz,pin_h+3]);
+        translate([0,0,pin_h])cube([pcb_w+2*pcb_hezag, pcb_d+2*pcb_hezag, pcb_h+karima +.1]);
+        translate([-ww,30,])cube([teljes_w, 25, also_h]);
         translate([-ww,-ww,pin_h+pcb_h])cube([ww+tures,pcb_d+2*ww,karima]);
-        translate([pcb_w-tures,-ww,pin_h+pcb_h])cube([ww+tures,pcb_d+2*ww,karima]);
-        for(x = [0, pcb_w-screwhole_tamasz]){
-            #translate([x+screwhole_tamasz/2, screwhole_tamasz/2, -ww-1])cylinder(h=50, r=1.5, $fn=1.5*12);
+        translate([pcb_w-tures+2*pcb_hezag,-ww,pin_h+pcb_h])cube([ww+tures,pcb_d+2*ww,karima]);
+        for(x = [6.35+pcb_hezag, 100.33+pcb_hezag]){
+            #translate([x, 6.35, -ww-1])cylinder(h=50, r=1.5, $fn=1.5*12);
+        }
+        hx1 = 20;
+        hy1 = 20;
+        hx2 = teljes_w-20-ww;
+        hy2 = teljes_d-ww-30;
+        hangers = [[hx1, hy1],
+                   [hx2, hy1],
+                   [hx2, hy2],
+                   [hx1, hy2]];
+    
+        for(x = hangers){
+            translate([x[0],x[1],-ww-.1])
+                rotate(90)keyhole_hanger(2,4,10);
         }
 
     }
 
-
+/*
     for(x = [0, pcb_w-screwhole_tamasz]){
-        translate([x,0,0])
+        translate([x+pcb_hezag,pcb_hezag,0])
             difference(){
                 cube([screwhole_tamasz, screwhole_tamasz, pin_h]);
                 translate([screwhole_tamasz/2, screwhole_tamasz/2, 0])cylinder(h=50, r=1.5, $fn=1.5*12);
             }
-    }
+    }*/
     //translate([0, pcb_d+ww-2,pin_h+pcb_h])rotate(-90)trapez(tures=tures);
 }
+
+//pcb maga
+//translate([pcb_hezag, pcb_hezag, pin_h])cube([pcb_w, pcb_d, pcb_h]);
 
 module felso_fel(){
     difference(){

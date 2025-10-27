@@ -152,3 +152,13 @@ module shelly1L(){
     }
     
 }
+
+module keyhole_hanger(r1, r2, h){
+    dist = 2 * r1 + r2;
+    hull(){
+        cylinder(r=r1, h, $fn=12*r1);
+        translate([dist, 0,0])cylinder(r=r1, h, $fn=12*r1);
+    }
+    translate([dist, 0, 0])cylinder(r=r2, h, $fn=12*r2);
+    
+}
