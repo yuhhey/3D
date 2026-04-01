@@ -1,4 +1,5 @@
 w = 5;
+keret_szelesseg = 12;
 
 module gombolyitett_teglalap(a,b,r){
     minkowski(){
@@ -9,7 +10,7 @@ module gombolyitett_teglalap(a,b,r){
 
 n_lyuk = 5;
 lyuk_legalso = 4;
-lyuk_tavolsag = 11;
+lyuk_tavolsag = 15;
 lyuk_legfelso = lyuk_legalso + (n_lyuk - 1) * lyuk_tavolsag;
 
 module m3_countersinks(){
@@ -27,7 +28,8 @@ m_keret = lyuk_legalso + lyuk_legfelso;
 difference(){
     linear_extrude(height=w)difference(){
         translate([2,2])gombolyitett_teglalap(86.2,m_keret,2);
-        translate([12+2, 8+2])gombolyitett_teglalap(62.2, m_keret-16, 2);
+        translate([2 + keret_szelesseg, 2 + keret_szelesseg])
+            gombolyitett_teglalap(86.2 - 2 * keret_szelesseg, m_keret - 2 * keret_szelesseg, 2);
     }
     m3_countersinks();
 }
